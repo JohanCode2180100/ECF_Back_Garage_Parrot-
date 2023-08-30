@@ -1,0 +1,14 @@
+{
+  "name": "garageparrot",
+  "version": "1.0.0",
+  "description": "back end nodejs-express-mysql for studiSchool control",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "JOHAN",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
