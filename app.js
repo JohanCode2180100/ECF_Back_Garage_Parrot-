@@ -3,6 +3,8 @@ const morgan = require("morgan");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 let cars = require("./mock-cars");
+let weekHours = require("./mock-hours");
+let review = require("./review");
 //importation de la methode success de maniere destructuré sans appeler le module complet
 const { success, getUniqueId } = require("./helper");
 const port = 3000;
@@ -70,6 +72,34 @@ app.delete("/api/second-hand-car/:id", (req, res) => {
   cars = cars.filter((car) => car.id !== id);
   const message = `la voiture ${carDeleted.name} a bien été supprimée`;
   res.json(success(message, carDeleted));
+});
+
+/* ---------------------------------------------------------------------------
+-----------------------------------HOURS REQUEST------------------------------
+------------------------------------------------------------------------------ */
+
+app.get("/api/hours", (req, res) => {
+  const message = "Les horaires ont été récupérés";
+  res.json(success(message, weekHours));
+});
+
+app.put("/api/hours/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const weekHoursUpdated = { ...req.body, id: id };
+  weekHours = weekHours.map((hours) => {
+    return hours.id === id ? weekHoursUpdated : hours;
+  });
+  const message = `Les horaires ont été modifiés`;
+  res.json(success(message, weekHoursUpdated));
+});
+
+/* ---------------------------------------------------------------------------
+-----------------------------------REVIEW REQUEST------------------------------
+------------------------------------------------------------------------------ */
+
+app.get("/api/review", (req, res) => {
+  const message = "les avis ont été récupérés";
+  res.json(success(message, review));
 });
 
 app.listen(port, () => console.log(`node is started to port ${port}`));
