@@ -12,12 +12,18 @@ app.get("/", (req, res) => {
 });
 
 //get second-hand-cars (GET ALL AND GET byID)
+
 app.get("/api/second-hand-car", (req, res) => {
-  res.send("all cars");
+  res.json(cars);
 });
 
+//find permet de parcourir les éléments de l'array et de trouver le premier correspondant
 app.get("/api/second-hand-car/:id", (req, res) => {
-  res.send(req.params);
+  const id = parseInt(req.params.id);
+  const car = car.find((car) => car.id === id);
+  res.json(car);
 });
+
+
 
 app.listen(port, () => console.log(`node is started to port ${port}`));
