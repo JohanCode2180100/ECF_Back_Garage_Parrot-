@@ -7,12 +7,8 @@ const port = 3000;
 
 const app = express();
 
-//ajout middleware pour une meilleure lisibilité des points de terminaisons
-app.use((req, res, next) => {
-  console.log(`URL : ${req.url}`);
-  next();
-});
-
+//ajout middleware morgan pour une meilleure lisibilité des points de terminaisons
+app.use(morgan("dev"));
 
 //utilisation du middleware request logger morgan
 app.use(morgan("dev"));
