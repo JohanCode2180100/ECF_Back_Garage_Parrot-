@@ -60,4 +60,12 @@ app.put("/api/second-hand-car/:id", (req, res) => {
 });
 
 //DELETE CAR by ID
+app.delete("/api/second-hand-car/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const carDeleted = cars.find((car) => car.id === id);
+  cars = cars.filter((car) => car.id !== id);
+  const message = `la voiture ${carDeleted.name} a bien été supprimée`;
+  res.json(success(message, carDeleted));
+});
+
 app.listen(port, () => console.log(`node is started to port ${port}`));
