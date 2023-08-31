@@ -1,5 +1,6 @@
-[
+const cars = [
   {
+    id: 1,
     brand: "CHRYSLER",
     name: "PLYMOUTH",
     year: "1969",
@@ -10,6 +11,7 @@
     createdAt: "24/08/2023",
   },
   {
+    id: 2,
     brand: "FORD",
     name: "GT 40",
     year: "2005",
@@ -20,6 +22,7 @@
     createdAt: "24/08/2023",
   },
   {
+    id: 3,
     brand: "AUDI",
     name: "A3 Sportback",
     year: "2021",
@@ -30,6 +33,7 @@
     createdAt: "24/08/2023",
   },
   {
+    id: 4,
     brand: "MERCEDES",
     name: "CSL COUPE",
     year: "2018",
@@ -40,3 +44,5 @@
     createdAt: "24/08/2023",
   },
 ];
+
+module.exports = cars;
