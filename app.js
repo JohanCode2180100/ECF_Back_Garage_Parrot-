@@ -6,6 +6,14 @@ const { success } = require("./helper");
 const port = 3000;
 
 const app = express();
+
+//ajout middleware pour une meilleure lisibilité des points de terminaisons
+app.use((req, res, next) => {
+  console.log(`URL : ${req.url}`);
+  next();
+});
+
+
 //utilisation du middleware request logger morgan
 app.use(morgan("dev"));
 
@@ -24,7 +32,7 @@ app.get("/api/second-hand-car", (req, res) => {
 app.get("/api/second-hand-car/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const car = cars.find((car) => car.id === id);
-  
+
   const message = "la voiture a bien été trouvée";
   res.json(success(message, car));
 });
