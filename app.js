@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const favicon = require("serve-favicon");
 let cars = require("./mock-cars");
 //importation de la methode success de maniere destructuré sans appeler le module complet
 const { success } = require("./helper");
@@ -8,10 +9,9 @@ const port = 3000;
 const app = express();
 
 //ajout middleware morgan pour une meilleure lisibilité des points de terminaisons
-app.use(morgan("dev"));
+app.use(favicon(__dirname + "/favicon.ico")).use(morgan("dev"));
 
-//utilisation du middleware request logger morgan
-app.use(morgan("dev"));
+//ajout middleware favicon
 
 app.get("/", (req, res) => {
   res.send("Bonjour");
