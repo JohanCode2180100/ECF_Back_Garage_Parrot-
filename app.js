@@ -1,8 +1,23 @@
 const express = require("express");
-const app = express();
+const morgan = require("morgan");
 
-app.get("/", function (req, res) {
-  res.send("Hello World");
+const port = 3000;
+
+const app = express();
+//utilisation du middleware request logger morgan
+app.use(morgan("dev"));
+
+app.get("/", (req, res) => {
+  res.send("Bonjour");
 });
 
-app.listen(3000);
+//get second-hand-cars (GET ALL AND GET byID)
+app.get("/api/second-hand-car", (req, res) => {
+  res.send("all cars");
+});
+
+app.get("/api/second-hand-car/:id", (req, res) => {
+  res.send(req.params);
+});
+
+app.listen(port, () => console.log(`node is started to port ${port}`));
