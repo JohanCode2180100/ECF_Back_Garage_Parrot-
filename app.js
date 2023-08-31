@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const favicon = require("serve-favicon");
 let cars = require("./mock-cars");
 //importation de la methode success de maniere destructuré sans appeler le module complet
-const { success } = require("./helper");
+const { success, getUniqueId } = require("./helper");
 const port = 3000;
 
 const app = express();
@@ -27,10 +27,20 @@ app.get("/api/second-hand-car", (req, res) => {
 //find permet de parcourir les éléments de l'array et de trouver le premier correspondant
 app.get("/api/second-hand-car/:id", (req, res) => {
   const id = parseInt(req.params.id);
+  //ajout de la new car
   const car = cars.find((car) => car.id === id);
 
   const message = "la voiture a bien été trouvée";
   res.json(success(message, car));
+});
+
+app.post("api/second-hand-car", (req, res) => {
+  const id = getUniqueId(cars);
+  //utilisation du spread operator pour fusionner les propriétés avec la nouvelle
+  const carCreated = { ...req.body, ...{ id: id, created: new Date() } };
+  cars.push(carCreated);
+  const message = `${carCreated.name} a bien été enregistrée`;
+  res.json(success(message, carCreated));
 });
 
 app.listen(port, () => console.log(`node is started to port ${port}`));
