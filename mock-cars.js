@@ -1,0 +1,48 @@
+const cars = [
+  {
+    id: 1,
+    brand: "CHRYSLER",
+    name: "PLYMOUTH",
+    year: "1969",
+    km: "145967",
+    price: "67000",
+    picture: "./assets/picture/plymouth.jpg",
+    description: "",
+    createdAt: "24/08/2023",
+  },
+  {
+    id: 2,
+    brand: "FORD",
+    name: "GT 40",
+    year: "2005",
+    km: "13756",
+    price: "399000",
+    picture: "./assets/picture/gt40.jpg",
+    description: "",
+    createdAt: "24/08/2023",
+  },
+  {
+    id: 3,
+    brand: "AUDI",
+    name: "A3 Sportback",
+    year: "2021",
+    km: "23600",
+    price: "31990",
+    picture: "./assets/picture/audi.jpg",
+    description: "",
+    createdAt: "24/08/2023",
+  },
+  {
+    id: 4,
+    brand: "MERCEDES",
+    name: "CSL COUPE",
+    year: "2018",
+    km: "48000",
+    price: "61987",
+    picture: "./assets/picture/mercedes.jpg",
+    description: "",
+    createdAt: "24/08/2023",
+  },
+];
+
+module.exports = cars;
