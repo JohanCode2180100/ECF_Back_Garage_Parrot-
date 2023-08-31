@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 let cars = require("./mock-cars");
 let weekHours = require("./mock-hours");
 let review = require("./review");
+let contact = require("./contact-mock");
 //importation de la methode success de maniere destructuré sans appeler le module complet
 const { success, getUniqueId } = require("./helper");
 const port = 3000;
@@ -117,4 +118,27 @@ app.delete("/api/review/:id", (req, res) => {
   res.json(success(message, reviewDeleted));
 });
 
+/* ---------------------------------------------------------------------------
+-----------------------------------CONTACT REQUEST------------------------------
+------------------------------------------------------------------------------ */
+app.get("/api/contact", (req, res) => {
+  const message = "la liste des formulaires a été récupérée";
+  res.json(success(message, contact));
+});
+
+app.post("/api/contact", (req, res) => {
+  const id = getUniqueId(contact);
+  const contactCreated = { ...req.body, ...{ id: id, created: new Date() } };
+  contact.push(contactCreated);
+  const message = `Le formulaire n° ${contactCreated.id} a bien été créé`;
+  res.json(success(message, contactCreated));
+});
+
+app.delete("/api/contact/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const contactDelete = contact.find((form) => form.id === id);
+  contact = contact.filter((form) => form.id !== id);
+  const message = `le formulaire de contact n° ${contactDelete.id} a bien été supprimé`;
+  res.json(success(message, contactDelete));
+});
 app.listen(port, () => console.log(`node is started to port ${port}`));
