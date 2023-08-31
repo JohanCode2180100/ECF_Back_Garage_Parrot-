@@ -102,4 +102,19 @@ app.get("/api/review", (req, res) => {
   res.json(success(message, review));
 });
 
+app.post("/api/review", (req, res) => {
+  const id = getUniqueId(review);
+  const reviewCreated = { ...req.body, ...{ id: id, created: new Date() } };
+  review.push(reviewCreated);
+  const message = `l'avis numéro ${reviewCreated.id} a bien été enregistré`;
+  res.json(success(message, reviewCreated));
+});
+app.delete("/api/review/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const reviewDeleted = review.find((message) => message.id === id);
+  review = review.filter((message) => message.id !== id);
+  const message = `l'avis n° ${reviewDeleted.id} a bien été supprimé`;
+  res.json(success(message, reviewDeleted));
+});
+
 app.listen(port, () => console.log(`node is started to port ${port}`));
