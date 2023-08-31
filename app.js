@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cars = require("./mock-cars");
 
 const port = 3000;
 
@@ -20,10 +21,8 @@ app.get("/api/second-hand-car", (req, res) => {
 //find permet de parcourir les éléments de l'array et de trouver le premier correspondant
 app.get("/api/second-hand-car/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  const car = car.find((car) => car.id === id);
+  const car = cars.find((car) => car.id === id);
   res.json(car);
 });
-
-
 
 app.listen(port, () => console.log(`node is started to port ${port}`));
