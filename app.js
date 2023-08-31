@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const favicon = require("serve-favicon");
+const bodyParser = require("body-parser");
 let cars = require("./mock-cars");
 //importation de la methode success de maniere destructuré sans appeler le module complet
 const { success, getUniqueId } = require("./helper");
@@ -8,8 +9,11 @@ const port = 3000;
 
 const app = express();
 
-//ajout middleware morgan pour une meilleure lisibilité des points de terminaisons
-app.use(favicon(__dirname + "/favicon.ico")).use(morgan("dev"));
+//ajout middlewares
+app
+  .use(favicon(__dirname + "/favicon.ico"))
+  .use(morgan("dev"))
+  .use(bodyParser.json());
 
 //ajout middleware favicon
 
@@ -34,13 +38,26 @@ app.get("/api/second-hand-car/:id", (req, res) => {
   res.json(success(message, car));
 });
 
-app.post("api/second-hand-car", (req, res) => {
+//POST CAR
+app.post("/api/second-hand-car", (req, res) => {
   const id = getUniqueId(cars);
   //utilisation du spread operator pour fusionner les propriétés avec la nouvelle
   const carCreated = { ...req.body, ...{ id: id, created: new Date() } };
   cars.push(carCreated);
-  const message = `${carCreated.name} a bien été enregistrée`;
+  const message = `Le véhicule ${carCreated.brand} a bien été enregistrée`;
   res.json(success(message, carCreated));
 });
 
+//UPDATE CAR by ID
+app.put("/api/second-hand-car/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const carUpdated = { ...req.body, id: id };
+  cars = cars.map((car) => {
+    return car.id === id ? carUpdated : car;
+  });
+  const message = `la voiture ${carUpdated.name} a bien été modifiée.`;
+  res.json(success(message, carUpdated));
+});
+
+//DELETE CAR by ID
 app.listen(port, () => console.log(`node is started to port ${port}`));
