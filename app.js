@@ -7,6 +7,7 @@ let weekHours = require("./mock-hours");
 let review = require("./review");
 let contact = require("./contact-mock");
 let homePage = require("./home-page");
+let section = require("./section");
 //importation de la methode success de maniere destructuré sans appeler le module complet
 const { success, getUniqueId } = require("./helper");
 const port = 3000;
@@ -195,6 +196,23 @@ app.put("/api/home_page/:id", (req, res) => {
   res.json(success(message, HomeTitleUpdated));
 });
 
+/* ---------------------------------------------------------------------------
+-----------------------------------SECTION PAGE REQUEST------------------------------
+------------------------------------------------------------------------------ */
 
+app.get("/api/section", (req, res) => {
+  const message = "Les sections ont été récupérées";
+  res.json(success(message, section));
+});
+
+app.put("/api/section/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const sectionHomeUpdated = { ...req.body, id: id };
+  section = section.map((contain) => {
+    return contain.id === id ? sectionHomeUpdated : contain;
+  });
+  const message = `Le contenu de la section n° ${sectionHomeUpdated.id} à bien été modifié`;
+  res.json(success(message, sectionHomeUpdated));
+});
 
 app.listen(port, () => console.log(`node started to port ${port}`));
