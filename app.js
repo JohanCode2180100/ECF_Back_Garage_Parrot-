@@ -6,6 +6,7 @@ let cars = require("./mock-cars");
 let weekHours = require("./mock-hours");
 let review = require("./review");
 let contact = require("./contact-mock");
+let homePage = require("./home-page");
 //importation de la methode success de maniere destructuré sans appeler le module complet
 const { success, getUniqueId } = require("./helper");
 const port = 3000;
@@ -175,5 +176,25 @@ app.delete("/api/contact/:id", (req, res) => {
   const message = `le formulaire de contact n° ${contactDelete.id} a bien été supprimé`;
   res.json(success(message, contactDelete));
 });
+
+/* ---------------------------------------------------------------------------
+-----------------------------------HOME PAGE REQUEST------------------------------
+------------------------------------------------------------------------------ */
+app.get("/api/home_page", (req, res) => {
+  const message = "Les titres de la page d'accueil ont été récupérés";
+  res.json(success(message, homePage));
+});
+
+app.put("/api/home_page/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const HomeTitleUpdated = { ...req.body, id: id };
+  homePage = homePage.map((title) => {
+    return title.id === id ? HomeTitleUpdated : title;
+  });
+  const message = `Le titre de la page d'accueil n° ${HomeTitleUpdated} à bien été modifié`;
+  res.json(success(message, HomeTitleUpdated));
+});
+
+
 
 app.listen(port, () => console.log(`node started to port ${port}`));
