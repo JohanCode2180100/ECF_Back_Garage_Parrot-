@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const db = require("./db_config");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 let cars = require("./mock-cars");
