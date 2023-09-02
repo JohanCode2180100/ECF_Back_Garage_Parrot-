@@ -1,9 +1,10 @@
 const mysql = require("mysql2");
+const config = require("./assets/config.json");
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "garageParrot",
+  host: config.db.host,
+  user: config.db.user,
+  database: config.db.database,
 });
 
 db.connect((err) => {

@@ -1,8 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
-const db = require("./db_config");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
+const config = require("./assets/config.json");
 let cars = require("./mock-cars");
 let weekHours = require("./mock-hours");
 let review = require("./review");
@@ -11,7 +11,6 @@ let homePage = require("./home-page");
 let section = require("./section");
 //importation de la methode success de maniere destructuré sans appeler le module complet
 const { success, getUniqueId } = require("./helper");
-const port = 3000;
 
 const app = express();
 
@@ -216,4 +215,6 @@ app.put("/api/section/:id", (req, res) => {
   res.json(success(message, sectionHomeUpdated));
 });
 
-app.listen(port, () => console.log(`node started to port ${port}`));
+app.listen(config.port, () =>
+  console.log(`node started to port ${config.port}`)
+);
