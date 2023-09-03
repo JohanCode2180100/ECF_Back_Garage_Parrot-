@@ -3,6 +3,18 @@ const morgan = require("morgan");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const config = require("./assets/config.json");
+//import create table
+const {
+  createAdminTableIfNotExists,
+  createHomePageTableIfNotExists,
+  createSectionTableIfNotExists,
+  createImageTableIfNotExists,
+  createOpening_hoursTableIfNotExists,
+  createReviewTableIfNotExists,
+  createCarContactFormTableIfNotExists,
+  createContactFormTableIfNotExists,
+  createSecondHandCarTableIfNotExists,
+} = require("./assets/database/table/table");
 let cars = require("./mock-cars");
 let weekHours = require("./mock-hours");
 let review = require("./review");
@@ -14,17 +26,26 @@ const { success, getUniqueId } = require("./helper");
 
 const app = express();
 
-//ajout middlewares
 app
+  //ajout middlewares
+  //ajout middleware favicon
   .use(favicon(__dirname + "/favicon.ico"))
   .use(morgan("dev"))
   .use(bodyParser.json());
 
-//ajout middleware favicon
+//mise en place des tables SQL
 
-app.get("/", (req, res) => {
-  res.send("Bonjour");
-});
+createAdminTableIfNotExists();
+createHomePageTableIfNotExists();
+createSectionTableIfNotExists();
+createImageTableIfNotExists();
+createOpening_hoursTableIfNotExists();
+createReviewTableIfNotExists();
+createSecondHandCarTableIfNotExists();
+createContactFormTableIfNotExists();
+createCarContactFormTableIfNotExists();
+
+// require("")(app);
 
 /* ---------------------------------------------------------------------------
 ----------------------------SECOND-HAND-CAR REQUEST---------------------------
