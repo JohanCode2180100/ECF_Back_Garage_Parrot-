@@ -2,7 +2,9 @@ const express = require("express");
 const morgan = require("morgan");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
-const config = require("./assets/config.json");
+const config = require("./src/db/config.json");
+const db = require("./src/db/db_config");
+
 //import create table
 const {
   createAdminTableIfNotExists,
@@ -14,7 +16,7 @@ const {
   createCarContactFormTableIfNotExists,
   createContactFormTableIfNotExists,
   createSecondHandCarTableIfNotExists,
-} = require("./assets/database/table/table");
+} = require("./src/models/table");
 let cars = require("./mock-cars");
 let weekHours = require("./mock-hours");
 let review = require("./review");
@@ -22,7 +24,7 @@ let contact = require("./contact-mock");
 let homePage = require("./home-page");
 let section = require("./section");
 //importation de la methode success de maniere destructuré sans appeler le module complet
-const { success, getUniqueId } = require("./helper");
+const { success, getUniqueId } = require("./src/db/helper");
 
 const app = express();
 
@@ -46,15 +48,16 @@ createContactFormTableIfNotExists();
 createCarContactFormTableIfNotExists();
 
 /*----------------------------------------------------------------------------
-------------------------------- CRUD OPERATION -------------------------------
+------------------------------- CRUD OPERATION SECOND HAND CAR----------------
 -----------------------------------------------------------------------------*/
 
-//get second-hand-cars (GET ALL AND GET byID)
+// require("./src/routes/getCarById.js")(app,db)
+require("./src/routes/createCar.js")(app, db);
+require("./src/routes/getAllCars.js")(app, db);
 
-app.get("/api/second-hand-car", (req, res) => {
-  const message = "La liste des voitures a bien été récupérée";
-  res.json(success(message, cars));
-});
+/*----------------------------------------------------------------------------
+------------------------------- CRUD OPERATION -------------------------------
+-----------------------------------------------------------------------------*/
 
 //find permet de parcourir les éléments de l'array et de trouver le premier correspondant
 app.get("/api/second-hand-car/:id", (req, res) => {
@@ -67,14 +70,14 @@ app.get("/api/second-hand-car/:id", (req, res) => {
 });
 
 //POST CAR
-app.post("/api/second-hand-car", (req, res) => {
-  const id = getUniqueId(cars);
-  //utilisation du spread operator pour fusionner les propriétés avec la nouvelle
-  const carCreated = { ...req.body, ...{ id: id, created: new Date() } };
-  cars.push(carCreated);
-  const message = `Le véhicule ${carCreated.brand} a bien été enregistrée`;
-  res.json(success(message, carCreated));
-});
+// app.post("/api/second-hand-car", (req, res) => {
+//   const id = getUniqueId(cars);
+//   //utilisation du spread operator pour fusionner les propriétés avec la nouvelle
+//   const carCreated = { ...req.body, ...{ id: id, created: new Date() } };
+//   cars.push(carCreated);
+//   const message = `Le véhicule ${carCreated.brand} a bien été enregistrée`;
+//   res.json(success(message, carCreated));
+// });
 
 //UPDATE CAR by ID
 app.put("/api/second-hand-car/:id", (req, res) => {
