@@ -1,5 +1,3 @@
-const db = require("../db/db_config").default;
-
 module.exports = (app, db) => {
   const getCarsDatabase = () => {
     return new Promise((resolve, reject) => {

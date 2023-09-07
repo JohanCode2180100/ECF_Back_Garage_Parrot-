@@ -1,5 +1,4 @@
 //POST SECOND HAND CAR
-const db = require("../db/db_config").default;
 
 module.exports = (app, db) => {
   app.post("/api/second-hand-car", (req, res) => {
@@ -29,7 +28,7 @@ module.exports = (app, db) => {
       .then(([results]) => {
         console.log("Nouvelle voiture insérée avec succès !");
         const message = `Le véhicule ${newCar.Brand} a bien été enregistré`;
-        res.json({ message, car });
+        res.json({ message, newCar });
       })
       .catch((err) => {
         console.error("Erreur lors de l'insertion :", err);
