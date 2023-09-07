@@ -4,7 +4,6 @@ module.exports = (app, db) => {
   app.post("/api/second-hand-car", (req, res) => {
     const newCarData = req.body;
 
-    // Ajoutez l'identifiant unique et la date de création à l'objet de la voiture
     const newCar = {
       ...newCarData,
       CreatedAt: new Date(),

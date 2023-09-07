@@ -19,8 +19,8 @@ module.exports = (app, db) => {
     const id = req.params.id;
     deleteCarByIdDatabase(id)
       .then((car) => {
-        const message = "La voiture a bien été supprimée";
-        res.json({ message, car });
+        const message = `La voiture ${car} a bien été supprimé`;
+        res.json({ message });
       })
       .catch((err) => {
         console.error("erreur lors de la suppression de la voiture", err);

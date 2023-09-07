@@ -56,34 +56,13 @@ require("./src/routes/second-hand-car.routes/createCar.js")(app, db);
 require("./src/routes/second-hand-car.routes/getAllCars.js")(app, db);
 require("./src/routes/second-hand-car.routes/getCarByID.js")(app, db);
 require("./src/routes/second-hand-car.routes/deleteCar.js")(app, db);
+require("./src/routes/second-hand-car.routes/updateCar.js")(app, db);
 
 /*----------------------------------------------------------------------------
 ------------------------------- CRUD OPERATION -------------------------------
 -----------------------------------------------------------------------------*/
 
-//find permet de parcourir les éléments de l'array et de trouver le premier correspondant
-
-
-//POST CAR
-// app.post("/api/second-hand-car", (req, res) => {
-//   const id = getUniqueId(cars);
-//   //utilisation du spread operator pour fusionner les propriétés avec la nouvelle
-//   const carCreated = { ...req.body, ...{ id: id, created: new Date() } };
-//   cars.push(carCreated);
-//   const message = `Le véhicule ${carCreated.brand} a bien été enregistrée`;
-//   res.json(success(message, carCreated));
-// });
-
 //UPDATE CAR by ID
-app.put("/api/second-hand-car/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const carUpdated = { ...req.body, id: id };
-  cars = cars.map((car) => {
-    return car.id === id ? carUpdated : car;
-  });
-  const message = `la voiture ${carUpdated.name} a bien été modifiée.`;
-  res.json(success(message, carUpdated));
-});
 
 //DELETE CAR by ID
 app.delete("/api/second-hand-car/:id", (req, res) => {
