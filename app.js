@@ -4,6 +4,7 @@ const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const config = require("./src/db/config.json");
 const db = require("./src/db/db_config");
+const cors = require('cors')
 
 //import create table
 const {
@@ -33,7 +34,8 @@ app
   //ajout middleware favicon
   .use(favicon(__dirname + "/favicon.ico"))
   .use(morgan("dev"))
-  .use(bodyParser.json());
+  .use(bodyParser.json())
+  .use(cors())
 
 //mise en place des tables SQL
 
