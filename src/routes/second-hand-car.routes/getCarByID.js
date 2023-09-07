@@ -17,6 +17,7 @@ module.exports = (app, db) => {
   app.get("/api/second-hand-car/:id", (req, res) => {
     //extraction de l'id passé dans l'url
     const id = req.params.id;
+
     getCarByIdDatabase(id)
       .then((car) => {
         const message = "La voiture a bien été récupérée";

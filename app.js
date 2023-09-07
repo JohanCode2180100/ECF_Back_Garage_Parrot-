@@ -55,7 +55,7 @@ createCarContactFormTableIfNotExists();
 require("./src/routes/second-hand-car.routes/createCar.js")(app, db);
 require("./src/routes/second-hand-car.routes/getAllCars.js")(app, db);
 require("./src/routes/second-hand-car.routes/getCarByID.js")(app, db);
-// require("./src/routes/second-hand-car.routes/deleteCar.js")(app, db);
+require("./src/routes/second-hand-car.routes/deleteCar.js")(app, db);
 
 /*----------------------------------------------------------------------------
 ------------------------------- CRUD OPERATION -------------------------------
