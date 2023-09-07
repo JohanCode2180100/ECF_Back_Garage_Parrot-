@@ -50,29 +50,11 @@ createCarContactFormTableIfNotExists();
 /*----------------------------------------------------------------------------
 ------------------------------- CRUD OPERATION SECOND HAND CAR----------------
 -----------------------------------------------------------------------------*/
-
-// require("./src/routes/getCarById.js")(app,db)
 require("./src/routes/second-hand-car.routes/createCar.js")(app, db);
 require("./src/routes/second-hand-car.routes/getAllCars.js")(app, db);
 require("./src/routes/second-hand-car.routes/getCarByID.js")(app, db);
 require("./src/routes/second-hand-car.routes/deleteCar.js")(app, db);
 require("./src/routes/second-hand-car.routes/updateCar.js")(app, db);
-
-/*----------------------------------------------------------------------------
-------------------------------- CRUD OPERATION -------------------------------
------------------------------------------------------------------------------*/
-
-//UPDATE CAR by ID
-
-//DELETE CAR by ID
-app.delete("/api/second-hand-car/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const carDeleted = cars.find((car) => car.id === id);
-  cars = cars.filter((car) => car.id !== id);
-  const message = `la voiture ${carDeleted.name} a bien été supprimée`;
-  res.json(success(message, carDeleted));
-});
-
 /* ---------------------------------------------------------------------------
 -----------------------------------HOURS REQUEST------------------------------
 ------------------------------------------------------------------------------ */
