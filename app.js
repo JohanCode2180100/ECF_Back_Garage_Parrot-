@@ -27,10 +27,12 @@ const { success, getUniqueId } = require("./src/db/helper");
 const app = express();
 
 app
-  //ajout middlewares
+
   //ajout middleware favicon
   .use(favicon(__dirname + "/favicon.ico"))
+  //middleware pour ameliorer la lisibilité des reponses des requetes
   .use(morgan("dev"))
+  //parse body en JSON
   .use(bodyParser.json());
 
 //mise en place des tables SQL
@@ -67,35 +69,8 @@ require("./src/routes/Review-routes/getAllReview.js")(app, db);
 require("./src/routes/Review-routes/createReview.js")(app, db);
 require("./src/routes/Review-routes/getValidedReviews.js")(app, db);
 require("./src/routes/Review-routes/getPendingReviews.js")(app, db);
-
-/* ---------------------------------------------------------------------------
------------------------------------REVIEW APPROUVED------------------------------
------------------------------------------------------------------------------- */
-
-app.put("/api/review/approve/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const approvedReview = review.find((item) => item.id === id);
-
-  if (!approvedReview) {
-    res.status(404).json(error("Avis non trouvé"));
-    return;
-  }
-  if (approvedReview.status === 1) {
-    approvedReview.status = 2; // Change le statut de "en attente" à "validé".
-    const message = `L'avis n°${approvedReview.id} a été approuvé avec succès`;
-    res.json(success(message, approvedReview));
-  } else {
-    res.status(400).json("Impossible d'approuver un avis déjà validé");
-  }
-});
-
-app.delete("/api/review/pending/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const reviewDeleted = review.find((message) => message.id === id);
-  review = review.filter((message) => message.id !== id);
-  const message = `l'avis n° ${reviewDeleted.id} a bien été supprimé`;
-  res.json(success(message, reviewDeleted));
-});
+require("./src/routes/Review-routes/approvedPendingReview.js")(app, db);
+require("./src/routes/Review-routes/deletedReview.js")(app, db);
 
 /* ---------------------------------------------------------------------------
 -----------------------------------CONTACT REQUEST------------------------------
