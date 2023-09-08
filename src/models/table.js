@@ -293,7 +293,7 @@ const createReviewTableIfNotExists = async () => {
           FirstName VARCHAR(255) NOT NULL,
           Containt VARCHAR(255) NOT NULL,
           Rank INT(1) NOT NULL,
-          Status TINYINT(1),
+          Status TINYINT(1) DEFAULT 1,
           CreatedAt DATE,
           Admin_id INT(11),          
           FOREIGN KEY (Admin_id) REFERENCES Admin(Admin_id)

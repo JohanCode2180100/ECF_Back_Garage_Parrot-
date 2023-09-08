@@ -17,8 +17,6 @@ const {
   createContactFormTableIfNotExists,
   createSecondHandCarTableIfNotExists,
 } = require("./src/models/table");
-let cars = require("./mock-cars");
-let weekHours = require("./mock-hours");
 let review = require("./review");
 let contact = require("./contact-mock");
 let homePage = require("./home-page");
@@ -50,29 +48,31 @@ createCarContactFormTableIfNotExists();
 /*----------------------------------------------------------------------------
 ------------------------------- CRUD OPERATION SECOND HAND CAR----------------
 -----------------------------------------------------------------------------*/
-require("./src/routes/second-hand-car.routes/createCar.js")(app, db);
-require("./src/routes/second-hand-car.routes/getAllCars.js")(app, db);
-require("./src/routes/second-hand-car.routes/getCarByID.js")(app, db);
-require("./src/routes/second-hand-car.routes/deleteCar.js")(app, db);
-require("./src/routes/second-hand-car.routes/updateCar.js")(app, db);
+require("./src/routes/Second-hand-car-routes/createCar.js")(app, db);
+require("./src/routes/Second-hand-car-routes/getAllCars.js")(app, db);
+require("./src/routes/Second-hand-car-routes/getCarByID.js")(app, db);
+require("./src/routes/Second-hand-car-routes/deleteCar.js")(app, db);
+require("./src/routes/Second-hand-car-routes/updateCar.js")(app, db);
 /* ---------------------------------------------------------------------------
------------------------------------HOURS REQUEST------------------------------
+-----------------------------------CRUD OPERATION HOURS REQUEST---------------
 ------------------------------------------------------------------------------ */
 
-app.get("/api/hours", (req, res) => {
-  const message = "Les horaires ont été récupérés";
-  res.json(success(message, weekHours));
-});
+require("./src/routes/Hours-routes/getHours.js")(app, db);
+require("./src/routes/Hours-routes/updateHours.js")(app, db);
 
-app.put("/api/hours/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const weekHoursUpdated = { ...req.body, id: id };
-  weekHours = weekHours.map((hours) => {
-    return hours.id === id ? weekHoursUpdated : hours;
-  });
-  const message = `Les horaires ont été modifiés`;
-  res.json(success(message, weekHoursUpdated));
-});
+/* ---------------------------------------------------------------------------
+-----------------------------------CRUD OPERATION REVIEW REQUEST--------------
+------------------------------------------------------------------------------ */
+require("./src/routes/Review-routes/getAllReview.js")(app, db);
+require("./src/routes/Review-routes/createReview.js")(app, db);
+
+/* ---------------------------------------------------------------------------
+-----------------------------------CONTACT REQUEST------------------------------
+------------------------------------------------------------------------------ */
+
+require("./src/routes/contact-routes/createContact.js")(app, db);
+require("./src/routes/contact-routes/getAllContact.js")(app, db);
+require("./src/routes/contact-routes/deleteContact.js")(app, db);
 
 /* ---------------------------------------------------------------------------
 -----------------------------------REVIEW REQUEST------------------------------
@@ -113,47 +113,12 @@ app.put("/api/review/approve/:id", (req, res) => {
   }
 });
 
-app.post("/api/review", (req, res) => {
-  const id = getUniqueId(review);
-  const reviewCreated = {
-    ...req.body,
-    ...{ id: id, status: 1, created: new Date() },
-  };
-  review.push(reviewCreated);
-  const message = `l'avis numéro ${reviewCreated.id} a bien été enregistré`;
-  res.json(success(message, reviewCreated));
-});
-
 app.delete("/api/review/pending/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const reviewDeleted = review.find((message) => message.id === id);
   review = review.filter((message) => message.id !== id);
   const message = `l'avis n° ${reviewDeleted.id} a bien été supprimé`;
   res.json(success(message, reviewDeleted));
-});
-
-/* ---------------------------------------------------------------------------
------------------------------------CONTACT REQUEST------------------------------
------------------------------------------------------------------------------- */
-app.get("/api/contact", (req, res) => {
-  const message = "la liste des formulaires a été récupérée";
-  res.json(success(message, contact));
-});
-
-app.post("/api/contact", (req, res) => {
-  const id = getUniqueId(contact);
-  const contactCreated = { ...req.body, ...{ id: id, created: new Date() } };
-  contact.push(contactCreated);
-  const message = `Le formulaire n° ${contactCreated.id} a bien été créé`;
-  res.json(success(message, contactCreated));
-});
-
-app.delete("/api/contact/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const contactDelete = contact.find((form) => form.id === id);
-  contact = contact.filter((form) => form.id !== id);
-  const message = `le formulaire de contact n° ${contactDelete.id} a bien été supprimé`;
-  res.json(success(message, contactDelete));
 });
 
 /* ---------------------------------------------------------------------------
