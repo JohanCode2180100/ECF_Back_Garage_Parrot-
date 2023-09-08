@@ -17,8 +17,6 @@ const {
   createContactFormTableIfNotExists,
   createSecondHandCarTableIfNotExists,
 } = require("./src/models/table");
-let cars = require("./mock-cars");
-let weekHours = require("./mock-hours");
 let review = require("./review");
 let contact = require("./contact-mock");
 let homePage = require("./home-page");
@@ -50,29 +48,23 @@ createCarContactFormTableIfNotExists();
 /*----------------------------------------------------------------------------
 ------------------------------- CRUD OPERATION SECOND HAND CAR----------------
 -----------------------------------------------------------------------------*/
-require("./src/routes/second-hand-car.routes/createCar.js")(app, db);
-require("./src/routes/second-hand-car.routes/getAllCars.js")(app, db);
-require("./src/routes/second-hand-car.routes/getCarByID.js")(app, db);
-require("./src/routes/second-hand-car.routes/deleteCar.js")(app, db);
-require("./src/routes/second-hand-car.routes/updateCar.js")(app, db);
+require("./src/routes/Second-hand-car-routes/createCar.js")(app, db);
+require("./src/routes/Second-hand-car-routes/getAllCars.js")(app, db);
+require("./src/routes/Second-hand-car-routes/getCarByID.js")(app, db);
+require("./src/routes/Second-hand-car-routes/deleteCar.js")(app, db);
+require("./src/routes/Second-hand-car-routes/updateCar.js")(app, db);
 /* ---------------------------------------------------------------------------
------------------------------------HOURS REQUEST------------------------------
+-----------------------------------CRUD OPERATION HOURS REQUEST------------------------------
 ------------------------------------------------------------------------------ */
 
-app.get("/api/hours", (req, res) => {
-  const message = "Les horaires ont été récupérés";
-  res.json(success(message, weekHours));
-});
+require("./src/routes/Hours-routes/getHours.js")(app, db);
+require("./src/routes/Hours-routes/updateHours.js")(app, db);
 
-app.put("/api/hours/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const weekHoursUpdated = { ...req.body, id: id };
-  weekHours = weekHours.map((hours) => {
-    return hours.id === id ? weekHoursUpdated : hours;
-  });
-  const message = `Les horaires ont été modifiés`;
-  res.json(success(message, weekHoursUpdated));
-});
+/* ---------------------------------------------------------------------------
+-----------------------------------CRUD OPERATION REVIEW REQUEST--------------
+------------------------------------------------------------------------------ */
+require("./src/routes/Review-routes/getAllReview.js")(app, db);
+require("./src/routes/Review-routes/createReview.js")(app, db);
 
 /* ---------------------------------------------------------------------------
 -----------------------------------REVIEW REQUEST------------------------------
@@ -111,17 +103,6 @@ app.put("/api/review/approve/:id", (req, res) => {
   } else {
     res.status(400).json("Impossible d'approuver un avis déjà validé");
   }
-});
-
-app.post("/api/review", (req, res) => {
-  const id = getUniqueId(review);
-  const reviewCreated = {
-    ...req.body,
-    ...{ id: id, status: 1, created: new Date() },
-  };
-  review.push(reviewCreated);
-  const message = `l'avis numéro ${reviewCreated.id} a bien été enregistré`;
-  res.json(success(message, reviewCreated));
 });
 
 app.delete("/api/review/pending/:id", (req, res) => {
