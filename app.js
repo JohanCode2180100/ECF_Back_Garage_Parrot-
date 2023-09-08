@@ -65,16 +65,12 @@ require("./src/routes/Hours-routes/updateHours.js")(app, db);
 ------------------------------------------------------------------------------ */
 require("./src/routes/Review-routes/getAllReview.js")(app, db);
 require("./src/routes/Review-routes/createReview.js")(app, db);
+require("./src/routes/Review-routes/getValidedReviews.js")(app, db);
 
 /* ---------------------------------------------------------------------------
 -----------------------------------REVIEW REQUEST------------------------------
 ------------------------------------------------------------------------------ */
 
-app.get("/api/review/valid", (req, res) => {
-  const reviewValidated = review.filter((review) => review.status === 2);
-  const message = "les avis ont été récupérés";
-  res.json(success(message, reviewValidated));
-});
 /* ---------------------------------------------------------------------------
 -----------------------------------REVIEW PENDING------------------------------
 ------------------------------------------------------------------------------ */
