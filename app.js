@@ -54,7 +54,7 @@ require("./src/routes/Second-hand-car-routes/getCarByID.js")(app, db);
 require("./src/routes/Second-hand-car-routes/deleteCar.js")(app, db);
 require("./src/routes/Second-hand-car-routes/updateCar.js")(app, db);
 /* ---------------------------------------------------------------------------
------------------------------------CRUD OPERATION HOURS REQUEST------------------------------
+-----------------------------------CRUD OPERATION HOURS REQUEST---------------
 ------------------------------------------------------------------------------ */
 
 require("./src/routes/Hours-routes/getHours.js")(app, db);
@@ -65,6 +65,14 @@ require("./src/routes/Hours-routes/updateHours.js")(app, db);
 ------------------------------------------------------------------------------ */
 require("./src/routes/Review-routes/getAllReview.js")(app, db);
 require("./src/routes/Review-routes/createReview.js")(app, db);
+
+/* ---------------------------------------------------------------------------
+-----------------------------------CONTACT REQUEST------------------------------
+------------------------------------------------------------------------------ */
+
+require("./src/routes/contact-routes/createContact.js")(app, db);
+require("./src/routes/contact-routes/getAllContact.js")(app, db);
+require("./src/routes/contact-routes/deleteContact.js")(app, db);
 
 /* ---------------------------------------------------------------------------
 -----------------------------------REVIEW REQUEST------------------------------
@@ -111,30 +119,6 @@ app.delete("/api/review/pending/:id", (req, res) => {
   review = review.filter((message) => message.id !== id);
   const message = `l'avis n° ${reviewDeleted.id} a bien été supprimé`;
   res.json(success(message, reviewDeleted));
-});
-
-/* ---------------------------------------------------------------------------
------------------------------------CONTACT REQUEST------------------------------
------------------------------------------------------------------------------- */
-app.get("/api/contact", (req, res) => {
-  const message = "la liste des formulaires a été récupérée";
-  res.json(success(message, contact));
-});
-
-app.post("/api/contact", (req, res) => {
-  const id = getUniqueId(contact);
-  const contactCreated = { ...req.body, ...{ id: id, created: new Date() } };
-  contact.push(contactCreated);
-  const message = `Le formulaire n° ${contactCreated.id} a bien été créé`;
-  res.json(success(message, contactCreated));
-});
-
-app.delete("/api/contact/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const contactDelete = contact.find((form) => form.id === id);
-  contact = contact.filter((form) => form.id !== id);
-  const message = `le formulaire de contact n° ${contactDelete.id} a bien été supprimé`;
-  res.json(success(message, contactDelete));
 });
 
 /* ---------------------------------------------------------------------------
