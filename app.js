@@ -8,7 +8,6 @@ const db = require("./src/db/db_config");
 //import create table
 const {
   createAdminTableIfNotExists,
-  createSectionTableIfNotExists,
   createImageTableIfNotExists,
   createReviewTableIfNotExists,
   createCarContactFormTableIfNotExists,
@@ -24,7 +23,7 @@ const {
 const {
   createHomePageTableIfNotExists,
 } = require("./src/models/homePage_table");
-
+const { createSectionTableIfNotExists } = require("./src/models/section_table");
 let review = require("./review");
 let contact = require("./contact-mock");
 let homePage = require("./home-page");
