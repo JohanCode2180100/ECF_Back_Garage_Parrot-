@@ -8,7 +8,6 @@ const db = require("./src/db/db_config");
 //import create table
 const {
   createAdminTableIfNotExists,
-  createHomePageTableIfNotExists,
   createSectionTableIfNotExists,
   createImageTableIfNotExists,
   createOpening_hoursTableIfNotExists,
@@ -17,6 +16,10 @@ const {
   createContactFormTableIfNotExists,
   createSecondHandCarTableIfNotExists,
 } = require("./src/models/table");
+
+const {
+  createHomePageTableIfNotExists,
+} = require("./src/models/homePage_table");
 
 let review = require("./review");
 let contact = require("./contact-mock");
@@ -38,13 +41,13 @@ app
 //mise en place des tables SQL
 
 createAdminTableIfNotExists();
+createReviewTableIfNotExists();
+createSecondHandCarTableIfNotExists();
 createHomePageTableIfNotExists();
 createSectionTableIfNotExists();
 createImageTableIfNotExists();
-createOpening_hoursTableIfNotExists();
-createReviewTableIfNotExists();
-createSecondHandCarTableIfNotExists();
 createContactFormTableIfNotExists();
+createOpening_hoursTableIfNotExists();
 createCarContactFormTableIfNotExists();
 
 /*----------------------------------------------------------------------------
