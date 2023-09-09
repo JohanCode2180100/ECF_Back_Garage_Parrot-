@@ -52,55 +52,6 @@ const createAdminTableIfNotExists = async () => {
 };
 
 /*------------------------------------------------------------------------------ 
------------------------------------TABLE HOME_PAGE----------------------------------
-------------------------------------------------------------------------------*/
-const checkHomePageTableExists = () => {
-  const checkTableQuery = "SHOW TABLES LIKE 'Home_page'";
-
-  return new Promise((resolve, reject) => {
-    db.query(checkTableQuery, (err, results) => {
-      if (err) {
-        console.error("Erreur lors de la vérification de la table :", err);
-        reject(err);
-      } else {
-        const tableExists = results.length > 0;
-        resolve(tableExists);
-      }
-    });
-  });
-};
-
-const createHomePageTableIfNotExists = async () => {
-  try {
-    const tableExists = await checkHomePageTableExists();
-
-    if (!tableExists) {
-      const createTableQuery = `
-        CREATE TABLE Home_page(
-          Home_page_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-          Title VARCHAR(255) NOT NULL,
-          Admin_id INT(11), 
-          FOREIGN KEY (Admin_id) REFERENCES Admin(Admin_id)
-        ) ENGINE=INNODB
-      `;
-
-      db.query(createTableQuery, (err, result) => {
-        if (err) {
-          console.error("Erreur lors de la création de la table : ", err);
-          throw err;
-        } else {
-          console.log("Table créée avec succès");
-        }
-      });
-    } else {
-      console.log("La table 'Home_page' existe déjà.");
-    }
-  } catch (error) {
-    console.error("Erreur lors de la vérification de la table :", error);
-  }
-};
-
-/*------------------------------------------------------------------------------ 
 -----------------------------------TABLE SECTION----------------------------------
 ------------------------------------------------------------------------------*/
 
@@ -405,7 +356,7 @@ const createCarContactFormTableIfNotExists = async () => {
 
     if (!tableExists) {
       const createTableQuery = `
-        CREATE TABLE Car-contact-form(
+        CREATE TABLE Car_contact_form(
           Car_contact_form_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
           Name VARCHAR(255) NOT NULL,
           FirstName VARCHAR(255) NOT NULL,
@@ -438,7 +389,6 @@ const createCarContactFormTableIfNotExists = async () => {
 };
 module.exports = {
   createAdminTableIfNotExists,
-  createHomePageTableIfNotExists,
   createSectionTableIfNotExists,
   createImageTableIfNotExists,
   createReviewTableIfNotExists,
