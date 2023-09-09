@@ -41,12 +41,10 @@ module.exports = (app, db) => {
       })
       .catch((error) => {
         console.error("Erreur lors de la mise à jour de la voiture", error);
-        res
-          .status(500)
-          .json({
-            error:
-              "Une erreur s'est produite lors de la mise à jour de la voiture.",
-          });
+        res.status(500).json({
+          error:
+            "Une erreur s'est produite lors de la mise à jour de la voiture.",
+        });
       });
   });
 };
