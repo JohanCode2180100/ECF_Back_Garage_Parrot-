@@ -37,10 +37,10 @@ const createAdminTableIfNotExists = async () => {
 
       db.query(createTableQuery, (err, result) => {
         if (err) {
-          console.error("Erreur lors de la création de la table : ", err);
+          console.error("Erreur lors de la création de la table Admin: ", err);
           throw err;
         } else {
-          console.log("Table créée avec succès");
+          console.log("Table Admin créée avec succès");
         }
       });
     } else {

@@ -16,15 +16,14 @@ const {
   createSecondHandCarTableIfNotExists,
 } = require("./src/models/table");
 
-
 //import create table and insert data
 
-const {createOpening_hoursTableIfNotExists} = require("./src/models/Opening_hours_table")
-
+const {
+  createOpening_hoursTableIfNotExists,
+} = require("./src/models/Opening_hours_table");
 const {
   createHomePageTableIfNotExists,
 } = require("./src/models/homePage_table");
-
 
 let review = require("./review");
 let contact = require("./contact-mock");
@@ -49,17 +48,11 @@ app
 createAdminTableIfNotExists();
 createReviewTableIfNotExists();
 createSecondHandCarTableIfNotExists();
+createCarContactFormTableIfNotExists();
 createHomePageTableIfNotExists();
 createSectionTableIfNotExists();
 createImageTableIfNotExists();
-
-createAdminTableIfNotExists();
-createReviewTableIfNotExists();
-createSecondHandCarTableIfNotExists();
-
 createContactFormTableIfNotExists();
-createOpening_hoursTableIfNotExists();
-createCarContactFormTableIfNotExists();
 createOpening_hoursTableIfNotExists();
 
 /*----------------------------------------------------------------------------

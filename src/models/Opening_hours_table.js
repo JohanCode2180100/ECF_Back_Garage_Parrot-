@@ -44,15 +44,15 @@ const createOpening_hoursTableIfNotExists = async () => {
         } else {
           console.log("Table OpeningHours créée avec succès");
 
-          const insertDataQuery = `INSERT INTO Opening_hours (Days, Open_AM, Close_AM, Open_PM, Close_PM, Home_page_id)
+          const insertDataQuery = `INSERT INTO Opening_hours (Days, Open_AM, Close_AM, Open_PM, Close_PM)
           VALUES
-          ('Lundi','08:45', '12:00','14:00','18:00',1),
-          ('Mardi','08:45', '12:00','14:00','18:00',1),
-          ('Mercredi','08:45', '12:00','14:00','18:00',1),
-          ('Jeudi','08:45', '12:00','14:00','18:00',1),
-          ('Vendredi','08:45', '12:00','14:00','18:00',1),
-          ('Samedi','08:45', '12:00','Fermé','',1),
-          ('Dimanche','Fermé','','','',1)`;
+          ('Lundi','08:45', '12:00','14:00','18:00'),
+          ('Mardi','08:45', '12:00','14:00','18:00'),
+          ('Mercredi','08:45', '12:00','14:00','18:00'),
+          ('Jeudi','08:45', '12:00','14:00','18:00'),
+          ('Vendredi','08:45', '12:00','14:00','18:00'),
+          ('Samedi','08:45', '12:00','Fermé',''),
+          ('Dimanche','Fermé','','','')`;
 
           db.query(insertDataQuery, (err, result) => {
             if (err) {
@@ -62,7 +62,6 @@ const createOpening_hoursTableIfNotExists = async () => {
             }
           });
         }
-        //suite du code
       });
     } else {
       console.log("La table 'OpeningHours' existe déjà.");
