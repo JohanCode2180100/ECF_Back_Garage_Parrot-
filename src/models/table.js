@@ -52,60 +52,6 @@ const createAdminTableIfNotExists = async () => {
 };
 
 /*------------------------------------------------------------------------------ 
------------------------------------TABLE SECTION----------------------------------
-------------------------------------------------------------------------------*/
-
-const checkSectionTableExists = () => {
-  const checkTableQuery = "SHOW TABLES LIKE 'Section'";
-
-  return new Promise((resolve, reject) => {
-    db.query(checkTableQuery, (err, results) => {
-      if (err) {
-        console.error("Erreur lors de la vérification de la table :", err);
-        reject(err);
-      } else {
-        const tableExists = results.length > 0;
-        resolve(tableExists);
-      }
-    });
-  });
-};
-
-const createSectionTableIfNotExists = async () => {
-  try {
-    const tableExists = await checkSectionTableExists();
-
-    if (!tableExists) {
-      const createTableQuery = `
-        CREATE TABLE Section (
-          Section_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-          Title VARCHAR(255) NOT NULL,
-          Content TEXT, 
-          Home_page_id INT(11),
-          FOREIGN KEY (Home_page_id) REFERENCES Home_page(Home_page_id)
-        ) ENGINE=INNODB
-      `;
-
-      db.query(createTableQuery, (err, result) => {
-        if (err) {
-          console.error("Erreur lors de la création de la table : ", err);
-          throw err;
-        } else {
-          console.log("Table Section créée avec succès");
-        }
-      });
-    } else {
-      console.log("La table 'Section' existe déjà.");
-    }
-  } catch (error) {
-    console.error(
-      "Erreur lors de la vérification de la table Section :",
-      error
-    );
-  }
-};
-
-/*------------------------------------------------------------------------------ 
 -----------------------------------TABLE IMAGE----------------------------------
 ------------------------------------------------------------------------------*/
 
@@ -155,8 +101,6 @@ const createImageTableIfNotExists = async () => {
     console.error("Erreur lors de la vérification de la table Image :", error);
   }
 };
-
-
 
 /*------------------------------------------------------------------------------ 
 -----------------------------------REVIEW----------------------------------
@@ -389,7 +333,6 @@ const createCarContactFormTableIfNotExists = async () => {
 };
 module.exports = {
   createAdminTableIfNotExists,
-  createSectionTableIfNotExists,
   createImageTableIfNotExists,
   createReviewTableIfNotExists,
   createSecondHandCarTableIfNotExists,
