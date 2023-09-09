@@ -90,7 +90,7 @@ require("./src/routes/HomePage-routes/updatedContaintHomePageByID.js")(app, db);
 -----------------------------------SECTION PAGE REQUEST------------------------------
 ------------------------------------------------------------------------------ */
 require("./src/routes/section-routes/getAllSections.js")(app, db);
-require("./src/routes/section-routes/updatedSection.js")(app, db);
+require("./src/routes/section-routes/updateSection.js")(app, db);
 
 app.listen(config.port, () =>
   console.log(`node started to port ${config.port}`)
