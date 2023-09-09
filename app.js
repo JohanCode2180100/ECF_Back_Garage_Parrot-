@@ -17,6 +17,7 @@ const {
   createContactFormTableIfNotExists,
   createSecondHandCarTableIfNotExists,
 } = require("./src/models/table");
+
 let review = require("./review");
 let contact = require("./contact-mock");
 let homePage = require("./home-page");
