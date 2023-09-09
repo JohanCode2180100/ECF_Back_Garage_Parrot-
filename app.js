@@ -24,10 +24,6 @@ const {
   createHomePageTableIfNotExists,
 } = require("./src/models/homePage_table");
 const { createSectionTableIfNotExists } = require("./src/models/section_table");
-let review = require("./review");
-let contact = require("./contact-mock");
-let homePage = require("./home-page");
-let section = require("./section");
 
 //importation de la methode success de maniere destructuré sans appeler le module complet
 const { success, getUniqueId } = require("./src/db/helper");
