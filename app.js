@@ -17,7 +17,6 @@ const {
   createContactFormTableIfNotExists,
   createSecondHandCarTableIfNotExists,
 } = require("./src/models/table");
-let cars = require("./mock-cars");
 let weekHours = require("./mock-hours");
 let review = require("./review");
 let contact = require("./contact-mock");
