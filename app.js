@@ -48,7 +48,7 @@ createContactFormTableIfNotExists();
 createCarContactFormTableIfNotExists();
 
 /*----------------------------------------------------------------------------
-------------------------------- CRUD OPERATION SECOND HAND CAR----------------
+--------------------- CRUD OPERATION SECOND HAND CAR--------------------------
 -----------------------------------------------------------------------------*/
 require("./src/routes/Second-hand-car-routes/createCar.js")(app, db);
 require("./src/routes/Second-hand-car-routes/getAllCars.js")(app, db);
@@ -56,14 +56,14 @@ require("./src/routes/Second-hand-car-routes/getCarByID.js")(app, db);
 require("./src/routes/Second-hand-car-routes/deleteCar.js")(app, db);
 require("./src/routes/Second-hand-car-routes/updateCar.js")(app, db);
 /* ---------------------------------------------------------------------------
------------------------------------CRUD OPERATION HOURS REQUEST---------------
+-------------------------CRUD OPERATION HOURS REQUEST-------------------------
 ------------------------------------------------------------------------------ */
 
 require("./src/routes/Hours-routes/getHours.js")(app, db);
 require("./src/routes/Hours-routes/updateHours.js")(app, db);
 
 /* ---------------------------------------------------------------------------
------------------------------------CRUD OPERATION REVIEW REQUEST--------------
+--------------------------CRUD OPERATION REVIEW REQUEST-----------------------
 ------------------------------------------------------------------------------ */
 require("./src/routes/Review-routes/getAllReview.js")(app, db);
 require("./src/routes/Review-routes/createReview.js")(app, db);
@@ -73,7 +73,7 @@ require("./src/routes/Review-routes/approvedPendingReview.js")(app, db);
 require("./src/routes/Review-routes/deletedReview.js")(app, db);
 
 /* ---------------------------------------------------------------------------
------------------------------------CONTACT REQUEST------------------------------
+--------------------------CRUD OPERATION CONTACT REQUEST----------------------
 ------------------------------------------------------------------------------ */
 
 require("./src/routes/contact-routes/createContact.js")(app, db);
@@ -81,22 +81,11 @@ require("./src/routes/contact-routes/getAllContact.js")(app, db);
 require("./src/routes/contact-routes/deleteContact.js")(app, db);
 
 /* ---------------------------------------------------------------------------
------------------------------------HOME PAGE REQUEST------------------------------
+---------------------------CRUD OPERATION HOME PAGE REQUEST-------------------
 ------------------------------------------------------------------------------ */
-app.get("/api/home_page", (req, res) => {
-  const message = "Les titres de la page d'accueil ont été récupérés";
-  res.json(success(message, homePage));
-});
 
-app.put("/api/home_page/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const HomeTitleUpdated = { ...req.body, id: id };
-  homePage = homePage.map((title) => {
-    return title.id === id ? HomeTitleUpdated : title;
-  });
-  const message = `Le titre de la page d'accueil n° ${HomeTitleUpdated} à bien été modifié`;
-  res.json(success(message, HomeTitleUpdated));
-});
+require("./src/routes/HomePage-routes/getAllContaintHome.js")(app, db);
+require("./src/routes/HomePage-routes/updatedContaintHomePageByID.js")(app, db);
 
 /* ---------------------------------------------------------------------------
 -----------------------------------SECTION PAGE REQUEST------------------------------
