@@ -10,21 +10,27 @@ const {
   createAdminTableIfNotExists,
   createSectionTableIfNotExists,
   createImageTableIfNotExists,
-  createOpening_hoursTableIfNotExists,
   createReviewTableIfNotExists,
   createCarContactFormTableIfNotExists,
   createContactFormTableIfNotExists,
   createSecondHandCarTableIfNotExists,
 } = require("./src/models/table");
 
+
+//import create table and insert data
+
+const {createOpening_hoursTableIfNotExists} = require("./src/models/Opening_hours_table")
+
 const {
   createHomePageTableIfNotExists,
 } = require("./src/models/homePage_table");
+
 
 let review = require("./review");
 let contact = require("./contact-mock");
 let homePage = require("./home-page");
 let section = require("./section");
+
 //importation de la methode success de maniere destructuré sans appeler le module complet
 const { success, getUniqueId } = require("./src/db/helper");
 
@@ -46,9 +52,15 @@ createSecondHandCarTableIfNotExists();
 createHomePageTableIfNotExists();
 createSectionTableIfNotExists();
 createImageTableIfNotExists();
+
+createAdminTableIfNotExists();
+createReviewTableIfNotExists();
+createSecondHandCarTableIfNotExists();
+
 createContactFormTableIfNotExists();
 createOpening_hoursTableIfNotExists();
 createCarContactFormTableIfNotExists();
+createOpening_hoursTableIfNotExists();
 
 /*----------------------------------------------------------------------------
 --------------------- CRUD OPERATION SECOND HAND CAR--------------------------
