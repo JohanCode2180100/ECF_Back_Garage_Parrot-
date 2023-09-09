@@ -27,7 +27,6 @@ const { success, getUniqueId } = require("./src/db/helper");
 const app = express();
 
 app
-
   //ajout middleware favicon
   .use(favicon(__dirname + "/favicon.ico"))
   //middleware pour ameliorer la lisibilité des reponses des requetes
@@ -90,21 +89,8 @@ require("./src/routes/HomePage-routes/updatedContaintHomePageByID.js")(app, db);
 /* ---------------------------------------------------------------------------
 -----------------------------------SECTION PAGE REQUEST------------------------------
 ------------------------------------------------------------------------------ */
-
-app.get("/api/section", (req, res) => {
-  const message = "Les sections ont été récupérées";
-  res.json(success(message, section));
-});
-
-app.put("/api/section/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const sectionHomeUpdated = { ...req.body, id: id };
-  section = section.map((contain) => {
-    return contain.id === id ? sectionHomeUpdated : contain;
-  });
-  const message = `Le contenu de la section n° ${sectionHomeUpdated.id} à bien été modifié`;
-  res.json(success(message, sectionHomeUpdated));
-});
+require("./src/routes/section-routes/getAllSections.js")(app, db);
+require("./src/routes/section-routes/updatedSection.js")(app, db);
 
 app.listen(config.port, () =>
   console.log(`node started to port ${config.port}`)
