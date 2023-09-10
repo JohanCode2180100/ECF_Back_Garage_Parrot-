@@ -31,7 +31,7 @@ const createAdminTableIfNotExists = async () => {
           CREATE TABLE Admin (
             Admin_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
             Email VARCHAR(50) NOT NULL,
-            Password VARCHAR(60) NOT NULL, -- Utilisez VARCHAR(60) pour stocker le hachage
+            Password VARCHAR(80) NOT NULL, 
             Permission TINYINT(1)
           ) ENGINE=INNODB
         `;
