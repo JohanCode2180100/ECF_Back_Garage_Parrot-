@@ -7,7 +7,6 @@ const db = require("./src/db/db_config");
 
 //import create table
 const {
-  createAdminTableIfNotExists,
   createImageTableIfNotExists,
   createReviewTableIfNotExists,
   createCarContactFormTableIfNotExists,
@@ -15,8 +14,9 @@ const {
   createSecondHandCarTableIfNotExists,
 } = require("./src/models/table");
 
+const newLocal = "";
 //import create table and insert data
-
+const { createAdminTableIfNotExists } = require("./src/models/User");
 const {
   createOpening_hoursTableIfNotExists,
 } = require("./src/models/Opening_hours_table");

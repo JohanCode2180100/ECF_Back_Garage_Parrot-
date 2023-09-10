@@ -1,57 +1,6 @@
 const db = require("../db/db_config");
 
 /*------------------------------------------------------------------------------ 
------------------------------------TABLE ADMIN----------------------------------
-------------------------------------------------------------------------------*/
-
-//check pour voir si la table existe
-const checkAdminTableExists = () => {
-  const checkTableQuery = "SHOW TABLES LIKE 'Admin'";
-
-  return new Promise((resolve, reject) => {
-    db.query(checkTableQuery, (err, results) => {
-      if (err) {
-        console.error("Erreur lors de la vérification de la table :", err);
-        reject(err);
-      } else {
-        const tableExists = results.length > 0;
-        resolve(tableExists);
-      }
-    });
-  });
-};
-
-const createAdminTableIfNotExists = async () => {
-  try {
-    const tableExists = await checkAdminTableExists();
-
-    if (!tableExists) {
-      const createTableQuery = `
-        CREATE TABLE Admin (
-          Admin_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-          Email VARCHAR(50) NOT NULL,
-          Password VARCHAR(50) NOT NULL,
-          Permission TINYINT(1)
-        ) ENGINE=INNODB
-      `;
-
-      db.query(createTableQuery, (err, result) => {
-        if (err) {
-          console.error("Erreur lors de la création de la table Admin: ", err);
-          throw err;
-        } else {
-          console.log("Table Admin créée avec succès");
-        }
-      });
-    } else {
-      console.log("La table 'Admin' existe déjà.");
-    }
-  } catch (error) {
-    console.error("Erreur lors de la vérification de la table :", error);
-  }
-};
-
-/*------------------------------------------------------------------------------ 
 -----------------------------------TABLE IMAGE----------------------------------
 ------------------------------------------------------------------------------*/
 
@@ -332,7 +281,6 @@ const createCarContactFormTableIfNotExists = async () => {
   }
 };
 module.exports = {
-  createAdminTableIfNotExists,
   createImageTableIfNotExists,
   createReviewTableIfNotExists,
   createSecondHandCarTableIfNotExists,
