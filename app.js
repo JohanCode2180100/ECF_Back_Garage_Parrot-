@@ -5,13 +5,11 @@ const bodyParser = require("body-parser");
 const config = require("./src/db/config.json");
 const db = require("./src/db/db_config");
 
-const adminRoutes = require("./src/routes/admin");
-const appRoutes = require("./src/routes/appRoutes");
+const adminRoutes = require("./src/routes/adminRoutes");
+const publicRoutes = require("./src/routes/publicRoutes");
 //init Table and insert data for reset DB
 const initializeTables = require("./src/models/createTableFunction");
-=======
 const isAuth = require("./middleware/is-auth");
-
 
 const app = express();
 
@@ -23,7 +21,7 @@ app
   //parse body en JSON
   .use(bodyParser.json())
   .use("/admin", adminRoutes)
-  .use(appRoutes);
+  .use(publicRoutes);
 
 //mise en place des tables SQL
 
