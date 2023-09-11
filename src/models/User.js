@@ -45,8 +45,9 @@ const createAdminTableIfNotExists = async () => {
 
           const saltRounds = 10; // Tour de Hachage = 10
 
-          // Hasher le mot de passe avec la clé secrète
+          
           bcrypt.hash(
+            //.env en gitignore
             process.env.PASSWORD_HASH_SECRET,
             saltRounds,
             (err, hashedPassword) => {
