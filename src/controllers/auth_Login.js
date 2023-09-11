@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const db = require("../db/db_config");
+const jwt = require("jsonwebtoken");
+require("dotenv").config;
 
 exports.login = (req, res) => {
   const Email = req.body.Email;
@@ -38,8 +40,13 @@ exports.login = (req, res) => {
               console.log(err);
             });
           }
+          //JWT
+          const token = jwt.sign({ userId: admin.id }, process.env.JWT_TOKEN, {
+            expiresIn: "24h",
+          });
+
           const message = "Connexion reussi...";
-          res.send(message);
+          return res.json({ message, data: admin, token });
         })
         .catch((err) => {
           console.log(err);
