@@ -9,7 +9,7 @@ const adminRoutes = require("./src/routes/adminRoutes");
 const publicRoutes = require("./src/routes/publicRoutes");
 //init Table and insert data for reset DB
 const initializeTables = require("./src/models/createTableFunction");
-const isAuth = require("./middleware/is-auth");
+const authRoutes = require("./src/routes/auth");
 
 const app = express();
 
@@ -20,14 +20,13 @@ app
   .use(morgan("dev"))
   //parse body en JSON
   .use(bodyParser.json())
+  //routes
+  .use(authRoutes)
   .use("/admin", adminRoutes)
   .use(publicRoutes);
 
 //mise en place des tables SQL
-
 initializeTables();
-
-require("./src/controllers/auth.js")(app, db);
 
 app.listen(config.port, () =>
   console.log(`node started to port ${config.port}`)
