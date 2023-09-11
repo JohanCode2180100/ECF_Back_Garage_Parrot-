@@ -4,12 +4,14 @@ const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const config = require("./src/db/config.json");
 const db = require("./src/db/db_config");
+
 const adminRoutes = require("./src/routes/admin");
 const appRoutes = require("./src/routes/appRoutes");
-
+//init Table and insert data for reset DB
 const initializeTables = require("./src/models/createTableFunction");
+=======
+const isAuth = require("./middleware/is-auth");
 
-//import create table and insert data
 
 const app = express();
 
