@@ -14,7 +14,6 @@ const {
   createSecondHandCarTableIfNotExists,
 } = require("./src/models/table");
 
-const newLocal = "";
 //import create table and insert data
 const { createAdminTableIfNotExists } = require("./src/models/User");
 const {
@@ -24,9 +23,6 @@ const {
   createHomePageTableIfNotExists,
 } = require("./src/models/homePage_table");
 const { createSectionTableIfNotExists } = require("./src/models/section_table");
-
-//importation de la methode success de maniere destructuré sans appeler le module complet
-const { success, getUniqueId } = require("./src/db/helper");
 
 const app = express();
 
@@ -49,6 +45,8 @@ createSectionTableIfNotExists();
 createImageTableIfNotExists();
 createContactFormTableIfNotExists();
 createOpening_hoursTableIfNotExists();
+
+require("./src/controllers/auth.js")(app, db);
 
 /*----------------------------------------------------------------------------
 --------------------- CRUD OPERATION SECOND HAND CAR--------------------------
