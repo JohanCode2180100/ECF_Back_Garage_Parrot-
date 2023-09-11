@@ -4,7 +4,7 @@ const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const config = require("./src/db/config.json");
 const db = require("./src/db/db_config");
-
+const isAuth = require("./middleware/is-auth");
 //import create table
 const {
   createImageTableIfNotExists,
