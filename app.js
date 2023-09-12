@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const config = require("./src/db/config.json");
-const db = require("./src/db/db_config");
+const cors = require("cors");
 
 const adminRoutes = require("./src/routes/adminRoutes");
 const publicRoutes = require("./src/routes/publicRoutes");
@@ -20,6 +20,7 @@ app
   .use(morgan("dev"))
   //parse body en JSON
   .use(bodyParser.json())
+  .use(cors())
   //routes
   .use(authRoutes)
   .use("/admin", adminRoutes)
