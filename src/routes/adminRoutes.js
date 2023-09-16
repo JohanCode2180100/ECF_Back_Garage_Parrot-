@@ -6,6 +6,7 @@ const contactControllers = require("../controllers/admin/contact");
 const hoursControllers = require("../controllers/admin/hours");
 const homePageControllers = require("../controllers/admin/home_page");
 const sectionControllers = require("../controllers/admin/section");
+const isAuth = require("../../middleware/is-auth");
 
 /* ------------------------------------------------------------------------------------------
 -----------------------------------------ADMIN ROUTES----------------------------------------
