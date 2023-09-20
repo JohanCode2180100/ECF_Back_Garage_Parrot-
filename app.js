@@ -3,15 +3,15 @@ const morgan = require("morgan");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const config = require("./src/db/config.json");
-const cors = require("cors");
 const adminRoutes = require("./src/routes/adminRoutes");
 const publicRoutes = require("./src/routes/publicRoutes");
 //init Table and insert data for reset DB
 const initializeTables = require("./src/models/createTableFunction");
 const authRoutes = require("./src/routes/auth");
+const isAuth = require("./middleware/is-auth");
 
 const app = express();
-const isAuth = require("./middleware/is-auth");
+
 app
 
   //ajout middleware favicon
@@ -24,8 +24,8 @@ app
     bodyParser.urlencoded({
       extended: true,
     })
-  );
-app
+  )
+
   .use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -40,10 +40,9 @@ app
   })
 
   //routes
-
   .use(authRoutes)
-  .use("/admin", isAuth, adminRoutes)
-  .use(publicRoutes);
+  .use(publicRoutes)
+  .use("/admin", adminRoutes);
 
 //mise en place des tables SQL
 initializeTables();

@@ -23,6 +23,7 @@ exports.login = (req, res) => {
       }
 
       user = results[0];
+      console.log(user);
       const isPasswordValid = bcrypt.compareSync(userPassword, user.Password);
 
       if (!isPasswordValid) {
@@ -33,6 +34,7 @@ exports.login = (req, res) => {
       const token = jwt.sign({ email: user.Email }, process.env.JWT_TOKEN, {
         expiresIn: "1h",
       });
+      console.log(token);
 
       res.status(200).json({ token: token, expiresIn: 3600 });
     }
