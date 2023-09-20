@@ -12,22 +12,22 @@ const isAuth = require("../../middleware/is-auth");
 -----------------------------------------ADMIN ROUTES----------------------------------------
 --------------------------------------------------------------------------------------------- */
 //CAR
-router.post("/api/second-hand-car", carControllers.createCar);
-router.put("/api/second-hand-car/:id", carControllers.updatedCar);
-router.delete("/api/second-hand-car/:id", carControllers.deleteCar);
+router.post("/api/second-hand-car", isAuth, carControllers.createCar);
+router.put("/api/second-hand-car/:id", isAuth, carControllers.updatedCar);
+router.delete("/api/second-hand-car/:id", isAuth, carControllers.deleteCar);
 //REVIEW
-router.get("/api/review", reviewControllers.getAllReview);
-router.get("/api/review/pending", reviewControllers.reviewsPending);
-router.put("/api/reviewPending/:id", reviewControllers.updatedStatus);
-router.delete("/api/review/:id", reviewControllers.deleteReview);
+router.get("/api/review", isAuth, reviewControllers.getAllReview);
+router.get("/api/review/pending", isAuth, reviewControllers.reviewsPending);
+router.put("/api/reviewPending/:id", isAuth, reviewControllers.updatedStatus);
+router.delete("/api/review/:id", isAuth, reviewControllers.deleteReview);
 //CONTACT
-router.get("/api/contact", contactControllers.getContact);
-router.delete("/api/contact/:id", contactControllers.deleteContact);
+router.get("/api/contact", isAuth, contactControllers.getContact);  //ok
+router.delete("/api/contact/:id", isAuth, contactControllers.deleteContact);
 //HOURS
-router.put("/api/hours/:id", hoursControllers.updatedHours);
+router.put("/api/hours/:id", isAuth, hoursControllers.updatedHours);
 //HOME_PAGE
-router.put("/api/home_page", homePageControllers.updatedTitle);
+router.put("/api/home_page", isAuth, homePageControllers.updatedTitle);
 //SECTION
-router.put("/api/section/:id", sectionControllers.updatedSection);
+router.put("/api/section/:id", isAuth, sectionControllers.updatedSection);
 
 module.exports = router;

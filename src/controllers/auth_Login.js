@@ -23,6 +23,7 @@ exports.login = (req, res) => {
       }
 
       user = results[0];
+      console.log(user);
       const isPasswordValid = bcrypt.compareSync(userPassword, user.Password);
 
       if (!isPasswordValid) {
@@ -30,6 +31,7 @@ exports.login = (req, res) => {
       }
 
       // Génération d'un jeton JWT si le mot de passe est valide
+      //Token en dur pour ecf cause de non deploiement sinon dans .env
       const token = jwt.sign({ email: user.Email }, process.env.JWT_TOKEN, {
         expiresIn: "1h",
       });
