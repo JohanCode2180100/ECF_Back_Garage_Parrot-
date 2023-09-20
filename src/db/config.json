@@ -1,0 +1,9 @@
+{
+  "rootAPI": "/api/",
+  "port": 3000,
+  "db": {
+    "host": "localhost",
+    "user": "root",
+    "database": "garageParrot"
+  }
+}

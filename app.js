@@ -2,74 +2,52 @@ const express = require("express");
 const morgan = require("morgan");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
-let cars = require("./mock-cars");
-//importation de la methode success de maniere destructuré sans appeler le module complet
-const { success, getUniqueId } = require("./helper");
-const port = 3000;
+const config = require("./src/db/config.json");
+const cors = require("cors");
+const adminRoutes = require("./src/routes/adminRoutes");
+const publicRoutes = require("./src/routes/publicRoutes");
+//init Table and insert data for reset DB
+const initializeTables = require("./src/models/createTableFunction");
+const authRoutes = require("./src/routes/auth");
 
 const app = express();
-
-//ajout middlewares
+const isAuth = require("./middleware/is-auth");
 app
+
+  //ajout middleware favicon
   .use(favicon(__dirname + "/favicon.ico"))
+  //middleware pour ameliorer la lisibilité des reponses des requetes
   .use(morgan("dev"))
-  .use(bodyParser.json());
+  //parse body en JSON
+  .use(bodyParser.json())
+  .use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  );
+app
+  .use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+    );
+    next();
+  })
 
-//ajout middleware favicon
+  //routes
 
-app.get("/", (req, res) => {
-  res.send("Bonjour");
-});
+  .use(authRoutes)
+  .use("/admin", isAuth, adminRoutes)
+  .use(publicRoutes);
 
-/* ---------------------------------------------------------------------------
-----------------------------SECOND-HAND-CAR REQUEST---------------------------
------------------------------------------------------------------------------- */
+//mise en place des tables SQL
+initializeTables();
 
-//get second-hand-cars (GET ALL AND GET byID)
-
-app.get("/api/second-hand-car", (req, res) => {
-  const message = "La liste des voitures a bien été récupérée";
-  res.json(success(message, cars));
-});
-
-//find permet de parcourir les éléments de l'array et de trouver le premier correspondant
-app.get("/api/second-hand-car/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  //ajout de la new car
-  const car = cars.find((car) => car.id === id);
-
-  const message = "la voiture a bien été trouvée";
-  res.json(success(message, car));
-});
-
-//POST CAR
-app.post("/api/second-hand-car", (req, res) => {
-  const id = getUniqueId(cars);
-  //utilisation du spread operator pour fusionner les propriétés avec la nouvelle
-  const carCreated = { ...req.body, ...{ id: id, created: new Date() } };
-  cars.push(carCreated);
-  const message = `Le véhicule ${carCreated.brand} a bien été enregistrée`;
-  res.json(success(message, carCreated));
-});
-
-//UPDATE CAR by ID
-app.put("/api/second-hand-car/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const carUpdated = { ...req.body, id: id };
-  cars = cars.map((car) => {
-    return car.id === id ? carUpdated : car;
-  });
-  const message = `la voiture ${carUpdated.name} a bien été modifiée.`;
-  res.json(success(message, carUpdated));
-});
-
-//DELETE CAR by ID
-app.delete("/api/second-hand-car/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const carDeleted = cars.find((car) => car.id === id);
-  cars = cars.filter((car) => car.id !== id);
-  const message = `la voiture ${carDeleted.name} a bien été supprimée`;
-  res.json(success(message, carDeleted));
-});
-
-app.listen(port, () => console.log(`node is started to port ${port}`));
+app.listen(config.port, () =>
+  console.log(`node started to port ${config.port}`)
+);
