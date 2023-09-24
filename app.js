@@ -8,7 +8,6 @@ const publicRoutes = require("./src/routes/publicRoutes");
 //init Table and insert data for reset DB
 const initializeTables = require("./src/models/createTableFunction");
 const authRoutes = require("./src/routes/auth");
-const isAuth = require("./middleware/is-auth");
 
 const app = express();
 
