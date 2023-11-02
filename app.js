@@ -6,7 +6,6 @@ const config = require("./src/db/config.json");
 const adminRoutes = require("./src/routes/adminRoutes");
 const publicRoutes = require("./src/routes/publicRoutes");
 //init Table and insert data for reset DB
-const initializeTables = require("./src/models/createTableFunction");
 const authRoutes = require("./src/routes/auth");
 const isAuth = require("./middleware/is-auth");
 
@@ -43,9 +42,6 @@ app
   .use(authRoutes)
   .use(publicRoutes)
   .use("/admin", adminRoutes);
-
-//mise en place des tables SQL
-initializeTables();
 
 app.listen(config.port, () =>
   console.log(`node started to port ${config.port}`)

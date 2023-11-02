@@ -22,7 +22,7 @@ exports.createContact = (req, res) => {
   };
 
   const query =
-    "INSERT INTO contact_form (Name,FirstName, Adress, Email,Phone, Message) VALUES (?,?,?,?,?,?)";
+    "INSERT INTO Contact_form (Name,FirstName, Adress, Email,Phone, Message) VALUES (?,?,?,?,?,?)";
 
   const values = [
     form.Name,
