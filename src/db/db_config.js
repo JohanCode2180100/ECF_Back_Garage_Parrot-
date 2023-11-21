@@ -4,7 +4,11 @@ let dbConfig;
 
 if (process.env.NODE_ENV === "production") {
   // Configuration pour l'environnement de production (Heroku)
-  dbConfig = process.env.JAWSDB_MARIA_URL;
+  dbConfig = {
+    host: process.env.host,
+    port: process.env.port,
+    database: process.env.db,
+  };
 } else {
   // Configuration pour l'environnement local
   dbConfig = {
