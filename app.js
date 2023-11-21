@@ -6,7 +6,9 @@ const adminRoutes = require("./src/routes/adminRoutes");
 const publicRoutes = require("./src/routes/publicRoutes");
 //init Table and insert data for reset DB
 const authRoutes = require("./src/routes/auth");
+
 const port = process.env.PORT || 3000;
+
 const app = express();
 
 app
