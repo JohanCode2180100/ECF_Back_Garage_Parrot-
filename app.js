@@ -34,9 +34,13 @@ app
       "GET, POST, PATCH, PUT, DELETE, OPTIONS"
     );
     next();
-  })
+  });
 
-  //routes
+//routes
+
+get("/", (req, res) => {
+  res.json("hello");
+})
   .use(authRoutes)
   .use(publicRoutes)
   .use("/admin", adminRoutes);
