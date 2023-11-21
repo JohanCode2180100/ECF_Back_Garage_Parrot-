@@ -34,10 +34,6 @@ app
     next();
   })
 
-  .get("/", (req, res) => {
-    res.json("hello");
-  })
-
   //routes
   .use(authRoutes)
   .use(publicRoutes)
