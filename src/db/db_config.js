@@ -1,12 +1,22 @@
 const mysql = require("mysql2");
 
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-});
+let dbConfig;
+
+if (process.env.NODE_ENV === "production") {
+  // Configuration pour l'environnement de production (Heroku)
+  dbConfig = process.env.JAWSDB_MARIA_URL;
+} else {
+  // Configuration pour l'environnement local
+  dbConfig = {
+    host: "localhost",
+    port: 3306,
+    database: "votre_base_de_donnees_locale",
+    user: "votre_utilisateur_local",
+    password: "votre_mot_de_passe_local",
+  };
+}
+
+const db = mysql.createConnection(dbConfig);
 
 db.connect(function (err) {
   if (err) throw err;
