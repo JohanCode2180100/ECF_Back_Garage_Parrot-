@@ -41,4 +41,4 @@ app
   .use(publicRoutes)
   .use("/admin", adminRoutes);
 
-app.listen(config.port, () => console.log(`node started to port ${port}`));
+app.listen(port, () => console.log(`node started to port ${port}`));
