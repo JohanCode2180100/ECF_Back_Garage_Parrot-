@@ -10,7 +10,8 @@ const hoursControllers = require("../controllers/public/hours");
 /* ------------------------------------------------------------------------------------------
 -----------------------------------------PUBLIC ROUTES------------------------------------
 --------------------------------------------------------------------------------------------- */
-
+//heroku
+router.get("/", home)
 //CONTACT
 router.post("/api/contact", contactControllers.createContact);
 //REVIEW
