@@ -1,15 +1,23 @@
 const mysql = require("mysql2");
-const config = require("../db/config.json");
 
+const dataConfigDB = {
+  host: process.env.DB_HOST || "localhost",
+  port: process.env.DB_PORT || "",
+  database: process.env.DB_NAME || "garageParrot",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+};
 const db = mysql.createConnection({
-  host: config.db.host,
-  user: config.db.user,
-  database: config.db.database,
+  host: dataConfigDB.host,
+  port: dataConfigDB.port,
+  database: dataConfigDB.database,
+  user: dataConfigDB.user,
+  password: dataConfigDB.password,
 });
 
-db.connect((err) => {
-  if (err) console.log(err.message);
-  else console.log("connected ");
+db.connect(function (err) {
+  if (err) throw err;
+  console.log("Connecté à la base de données MySQL!");
 });
 
 module.exports = db;

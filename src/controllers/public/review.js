@@ -1,4 +1,4 @@
-const db = require('../../db/db_config')
+const db = require("../../db/db_config");
 exports.createReview = (req, res) => {
   const newReviewData = req.body;
 
@@ -30,7 +30,7 @@ exports.createReview = (req, res) => {
 exports.validatedReview = (req, res) => {
   const getReviewValidetedStatus = () => {
     return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM review WHERE Status ='2'", (error, results) => {
+      db.query("SELECT * FROM Review WHERE Status ='2'", (error, results) => {
         if (error) {
           reject(error);
         } else {

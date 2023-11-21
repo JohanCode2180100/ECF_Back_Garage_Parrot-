@@ -1,8 +1,8 @@
-const db = require('../../db/db_config')
+const db = require("../../db/db_config");
 exports.getHours = (req, res) => {
   const getHours = () => {
     return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM opening_hours", (error, results) => {
+      db.query("SELECT * FROM Opening_Hours", (error, results) => {
         if (error) {
           reject(error);
         } else {
