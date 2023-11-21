@@ -4,9 +4,10 @@
   "description": "back end nodejs-express-mysql for studiSchool control",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "NODE_ENV=production node app.js",
+    "dev": "set NODE_ENV=development && nodemon app.js"
   },
-  "author": "JOHAN",
+  "author": "JOHAN SAINTYVES",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -15,11 +16,11 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
+    "mariadb": "^3.2.2",
     "mysql2": "^3.6.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "morgan": "^1.10.0",
     "nodemon": "^3.0.1"
   }
 }
