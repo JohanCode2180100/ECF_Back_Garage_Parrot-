@@ -1,10 +1,3 @@
 {
-  "rootAPI": "/api/",
-  "port": 3000,
-  "db": {
-    "host": "86.208.219.246",
-    "user": "333884_v_parrot",
-    "Password": "StudiV.Parrot@2023",
-    "database": "examenstudi_ecf23garageparrot"
-  }
+  "rootAPI": "/api/"
 }

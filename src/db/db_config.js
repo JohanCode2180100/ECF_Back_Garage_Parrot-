@@ -1,12 +1,18 @@
 const mysql = require("mysql2");
-const config = require("../db/config.json");
 
+const dataConfigDB = {
+  host: process.env.DB_HOST || "localhost",
+  port: process.env.DB_PORT || "",
+  database: process.env.DB_NAME || "garageParrot",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+};
 const db = mysql.createConnection({
-  host: "mysql-examenstudi.alwaysdata.net",
-  port: 3306,
-  database: "examenstudi_ecf23garageparrot",
-  user: "333884_v_parrot",
-  password: "StudiV.Parrot@2023",
+  host: dataConfigDB.host,
+  port: dataConfigDB.port,
+  database: dataConfigDB.database,
+  user: dataConfigDB.user,
+  password: dataConfigDB.password,
 });
 
 db.connect(function (err) {
