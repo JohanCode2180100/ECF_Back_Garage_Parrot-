@@ -8,6 +8,9 @@ if (process.env.NODE_ENV === "production") {
     host: process.env.host,
     port: process.env.port,
     database: process.env.db,
+    username:process.env.username,
+    password:process.env.password
+
   };
 } else {
   // Configuration pour l'environnement local
