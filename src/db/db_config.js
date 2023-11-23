@@ -1,12 +1,6 @@
 const mysql = require("mysql2");
 
-const db = mysql.createConnection({
-  host: process.env.host,
-  port: process.env.port,
-  database: process.env.db,
-  user: process.env.user,
-  password: process.env.password,
-});
+const db = mysql.createConnection(process.env.JAWSDB_URL);
 
 db.connect(function (err) {
   if (err) throw err;
