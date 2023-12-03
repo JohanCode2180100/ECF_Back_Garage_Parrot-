@@ -8,11 +8,7 @@ const dataConfigDB = {
   password: process.env.DB_PASSWORD || "",
 };
 const db = mysql.createConnection({
-  host: dataConfigDB.host,
-  port: dataConfigDB.port,
-  database: dataConfigDB.database,
-  user: dataConfigDB.user,
-  password: dataConfigDB.password,
+  
 });
 
 db.connect(function (err) {
