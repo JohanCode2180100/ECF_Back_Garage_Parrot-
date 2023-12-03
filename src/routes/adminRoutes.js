@@ -21,7 +21,7 @@ router.get("/api/review/pending", isAuth, reviewControllers.reviewsPending);
 router.put("/api/reviewPending/:id", isAuth, reviewControllers.updatedStatus);
 router.delete("/api/review/:id", isAuth, reviewControllers.deleteReview);
 //CONTACT
-router.get("/api/contact", isAuth, contactControllers.getContact);  //ok
+router.get("/api/contact", isAuth, contactControllers.getContact);
 router.delete("/api/contact/:id", isAuth, contactControllers.deleteContact);
 //HOURS
 router.put("/api/hours/:id", isAuth, hoursControllers.updatedHours);
