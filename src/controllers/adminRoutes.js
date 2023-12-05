@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const carControllers = require("../controllers/admin/second_hand_car");
-const reviewControllers = require("../controllers/admin/review");
-const contactControllers = require("../controllers/admin/contact");
-const hoursControllers = require("../controllers/admin/hours");
-const homePageControllers = require("../controllers/admin/home_page");
-const sectionControllers = require("../controllers/admin/section");
+const carControllers = require("../models/admin/second_hand_car");
+const reviewControllers = require("../models/admin/review");
+const contactControllers = require("../models/admin/contact");
+const hoursControllers = require("../models/admin/hours");
+const homePageControllers = require("../models/admin/home_page");
+const sectionControllers = require("../models/admin/section");
 const isAuth = require("../../middleware/is-auth");
 
 /* ------------------------------------------------------------------------------------------

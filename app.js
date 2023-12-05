@@ -1,9 +1,9 @@
 const express = require("express");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
-const adminRoutes = require("./src/routes/adminRoutes");
-const publicRoutes = require("./src/routes/publicRoutes");
-const authRoutes = require("./src/routes/auth");
+const adminRoutes = require("./src/controllers/adminRoutes");
+const publicRoutes = require("./src/controllers/publicRoutes");
+const authRoutes = require("./src/controllers/auth");
 
 const port = process.env.PORT || 3000;
 

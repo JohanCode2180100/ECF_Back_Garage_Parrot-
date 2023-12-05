@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const contactControllers = require("../controllers/public/contact");
-const reviewControllers = require("../controllers/public/review");
-const homePageControllers = require("../controllers/public/homePage");
-const sectionControllers = require("../controllers/public/section");
-const carControllers = require("../controllers/public/second_hand_car");
-const hoursControllers = require("../controllers/public/hours");
-const homeControllers = require("../controllers/public/home");
+const contactControllers = require("../models/public/contact");
+const reviewControllers = require("../models/public/review");
+const homePageControllers = require("../models/public/homePage");
+const sectionControllers = require("../models/public/section");
+const carControllers = require("../models/public/second_hand_car");
+const hoursControllers = require("../models/public/hours");
+const homeControllers = require("../models/public/home");
 /* ------------------------------------------------------------------------------------------
 -----------------------------------------PUBLIC ROUTES------------------------------------
 --------------------------------------------------------------------------------------------- */
