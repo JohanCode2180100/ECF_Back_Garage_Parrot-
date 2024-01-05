@@ -9,16 +9,16 @@ exports.createCar = (req, res) => {
   };
 
   const query =
-    "INSERT INTO second_hand_car (Brand, Name, Year, Price, Kilometer, Picture, Description, CreatedAt) VALUES (?,?, ?, ?, ?, ?, ?, NOW())";
+    "INSERT INTO second_hand_car (brand, name, year, price, kilometer, picture, description, createdAt) VALUES (?,?, ?, ?, ?, ?, ?, NOW())";
 
   const values = [
-    newCar.Brand,
-    newCar.Name,
-    newCar.Year,
-    newCar.Price,
-    newCar.Kilometer,
-    newCar.Picture,
-    newCar.Description,
+    newCar.brand,
+    newCar.name,
+    newCar.year,
+    newCar.price,
+    newCar.kilometer,
+    newCar.picture,
+    newCar.description,
   ];
 
   db.promise()

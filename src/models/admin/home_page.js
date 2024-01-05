@@ -4,7 +4,7 @@ exports.updatedTitle = (req, res) => {
   const updatedTitle = (id, ContainTitle) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE home_page SET Title = ? WHERE home_page_id = ?",
+        "UPDATE section_homepage SET Title = ? WHERE section_homepage_id = ?",
         [ContainTitle.title, id],
         (error, results) => {
           if (error) {

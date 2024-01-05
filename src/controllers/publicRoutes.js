@@ -1,31 +1,32 @@
 const express = require("express");
 const router = express.Router();
-const contactControllers = require("../models/public/contact");
-const reviewControllers = require("../models/public/review");
-const homePageControllers = require("../models/public/homePage");
-const sectionControllers = require("../models/public/section");
-const carControllers = require("../models/public/second_hand_car");
-const hoursControllers = require("../models/public/hours");
-const homeControllers = require("../models/public/home");
+const contactModels = require("../models/public/contact");
+const reviewModels = require("../models/public/review");
+const homePageModels = require("../models/public/homePage");
+const sectionModels = require("../models/public/section");
+const carModels = require("../models/public/second_hand_car");
+const hoursModels = require("../models/public/hours");
+const homeModels = require("../models/public/home");
 /* ------------------------------------------------------------------------------------------
 -----------------------------------------PUBLIC ROUTES------------------------------------
 --------------------------------------------------------------------------------------------- */
 
 //CONTACT
-router.post("/api/contact", contactControllers.createContact);
+router.post("/api/contact", contactModels.createContact);
 //REVIEW
-router.get("/api/review/valid", reviewControllers.validatedReview);
-router.post("/api/review", reviewControllers.createReview);
+router.get("/api/review/valid", reviewModels.validatedReview);
+router.post("/api/review", reviewModels.createReview);
 //HOME PAGE
-router.get("/api/home_page", homePageControllers.getHomepage);
+router.get("/api/home_page", homePageModels.getHomepage);
 //SECTION
-router.get("/api/section", sectionControllers.getSection);
+router.get("/api/section", sectionModels.getSection);
 //CAR
-router.get("/api/second-hand-car", carControllers.getAllCars);
-router.get("/api/second-hand-car/:id", carControllers.getCarByID);
+router.get("/api/second-hand-car", carModels.getAllCars);
+router.get("/api/second-hand-car/:id", carModels.getCarByID);
+// router.get("/api/second-hand-car/search", carModels.getCarByName);
 //HOURS
-router.get("/api/hours", hoursControllers.getHours);
+router.get("/api/hours", hoursModels.getHours);
 //home heroku
-router.get("/", homeControllers.getHome);
+router.get("/", homeModels.getHome);
 
 module.exports = router;

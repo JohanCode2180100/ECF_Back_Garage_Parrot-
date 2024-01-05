@@ -8,7 +8,7 @@ exports.login = (req, res) => {
   const { userEmail, userPassword } = req.body;
 
   db.query(
-    "SELECT * FROM admin WHERE Email = ?",
+    "SELECT * FROM employes WHERE email = ?",
     [userEmail],
     (err, results) => {
       if (err) {
@@ -23,14 +23,14 @@ exports.login = (req, res) => {
       }
 
       user = results[0];
-      const isPasswordValid = bcrypt.compareSync(userPassword, user.Password);
+      console.log(user);
+      const isPasswordValid = bcrypt.compare(userPassword, user.password);
 
       if (!isPasswordValid) {
         return res.status(401).json({ message: "Mot de passe incorrect" });
       }
 
       // Génération d'un jeton JWT si le mot de passe est valide
-      //Token en dur pour ecf cause de non deploiement sinon dans .env
       const token = jwt.sign({ email: user.Email }, process.env.JWT_TOKEN, {
         expiresIn: "1h",
       });
