@@ -2,16 +2,36 @@ const db = require("../../db/db_config");
 
 exports.getAllCars = (req, res) => {
   const getCarsDatabase = () => {
-    return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM second_hand_car", (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results);
-        }
+    if (req.query.name) {
+      const name = req.query.name;
+      return new Promise((resolve, reject) => {
+        db.query(
+          "SELECT * FROM second_hand_car WHERE name LIKE ? OR brand LIKE ?",
+          [name + "%", name + "%"],
+          (error, results) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(results);
+            }
+          }
+        );
       });
-    });
+    } else {
+      // Si aucun nom n'est spécifié dans la requête
+
+      return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM second_hand_car", (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        });
+      });
+    }
   };
+
   getCarsDatabase()
     .then((cars) => {
       const message = "La liste des voitures a bien été récupérée";
