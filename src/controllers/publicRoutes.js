@@ -21,9 +21,11 @@ router.get("/api/home_page", homePageModels.getHomepage);
 //SECTION
 router.get("/api/section", sectionModels.getSection);
 //CAR
-router.get("/api/second-hand-car", carModels.getAllCars);
+
+
 router.get("/api/second-hand-car/:id", carModels.getCarByID);
-// router.get("/api/second-hand-car/search", carModels.getCarByName);
+router.get("/api/second-hand-car", carModels.getAllCars);
+
 //HOURS
 router.get("/api/hours", hoursModels.getHours);
 //home heroku

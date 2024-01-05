@@ -57,35 +57,3 @@ exports.getCarByID = (req, res) => {
       });
     });
 };
-
-// exports.getCarByName = (req, res) => {
-//   const getCarByNameDb = (name) => {
-//     return new Promise((resolve, reject) => {
-//       db.query(
-//         "SELECT * FROM second_hand_car WHERE name = ? OR brand = ?",
-//         [name],
-//         (error, results) => {
-//           if (error) {
-//             reject(error);
-//           } else {
-//             resolve(results);
-//           }
-//         }
-//       );
-//     });
-//   };
-//   //extraction de l'id passé dans l'url
-//   const name = req.params.name;
-
-//   getCarByNameDb(name)
-//     .then((car) => {
-//       const message = "recherche effectuée";
-//       res.json({ message, car });
-//     })
-//     .catch((err) => {
-//       console.error("erreur lors de la récupération de la voiture", err);
-//       res.status(500).json({
-//         err: "une erreur s'est produite lors de la récupération de la voiture !!!",
-//       });
-//     });
-// };
