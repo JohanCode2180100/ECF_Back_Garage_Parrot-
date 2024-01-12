@@ -18,7 +18,7 @@ bcrypt.hash(
       console.log("Mot de passe hashé :");
 
       const adminInsertQuery = `
-                  INSERT INTO Admin (Email, Password, Permission)
+                  INSERT INTO employes (Email, Password, Permission)
                   VALUES ('v.parrot@ecf2023.fr', '${hashedPassword}', 1)
                 `;
 

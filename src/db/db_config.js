@@ -1,19 +1,19 @@
 const mysql = require("mysql2");
+const config = require("./config.json");
 
-const dataConfigDB = {
-  host: process.env.DB_HOST || "localhost",
-  port: process.env.DB_PORT || "",
-  database: process.env.DB_NAME || "garageParrot",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-};
-const db = mysql.createConnection({
-  
-});
 
-db.connect(function (err) {
-  if (err) throw err;
-  console.log("Connecté à la base de données MySQL!");
+const db = mysql.createConnection(
+  process.env.JAWSDB_URL || {
+    host: config.host,
+    user: config.user,
+    database: config.database,
+  }
+);
+
+
+db.connect((err) => {
+  if (err) console.log(err.message);
+  else console.log("connected ");
 });
 
 module.exports = db;

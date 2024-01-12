@@ -9,16 +9,16 @@ exports.createCar = (req, res) => {
   };
 
   const query =
-    "INSERT INTO second_hand_car (Brand, Name, Year, Price, Kilometer, Picture, Description, CreatedAt) VALUES (?,?, ?, ?, ?, ?, ?, NOW())";
+    "INSERT INTO second_hand_car (brand, model, year, price, kilometer, picture, description, createdAt) VALUES (?,?, ?, ?, ?, ?, ?, NOW())";
 
   const values = [
-    newCar.Brand,
-    newCar.Name,
-    newCar.Year,
-    newCar.Price,
-    newCar.Kilometer,
-    newCar.Picture,
-    newCar.Description,
+    newCar.brand,
+    newCar.model,
+    newCar.year,
+    newCar.price,
+    newCar.kilometer,
+    newCar.picture,
+    newCar.description,
   ];
 
   db.promise()
@@ -40,10 +40,10 @@ exports.updatedCar = (req, res) => {
   const updatedCarByIdDatabase = (id, carData) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE second_hand_car SET Brand = ?, Name = ?, Year = ?, Price = ?, Kilometer = ?, Picture = ?, Description = ? WHERE second_hand_car_id = ?",
+        "UPDATE second_hand_car SET brand = ?, model = ?, year = ?, price = ?, kilometer = ?, picture = ?, description = ? WHERE second_hand_car_id = ?",
         [
           carData.Brand,
-          carData.Name,
+          carData.Model,
           carData.Year,
           carData.Price,
           carData.Kilometer,

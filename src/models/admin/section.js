@@ -20,7 +20,9 @@ exports.updatedSection = (req, res) => {
       queryParams.push(id);
 
       db.query(
-        `UPDATE section SET ${updateQuery.join(", ")} WHERE Section_id = ?`,
+        `UPDATE section_homepage SET ${updateQuery.join(
+          ", "
+        )} WHERE section_homepage_id = ?`,
         queryParams,
         (error, results) => {
           if (error) {

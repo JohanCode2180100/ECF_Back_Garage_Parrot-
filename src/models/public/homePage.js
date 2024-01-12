@@ -2,7 +2,7 @@ const db = require("../../db/db_config");
 exports.getHomepage = (req, res) => {
   const getHomePage = () => {
     return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM Home_page", (error, results) => {
+      db.query("SELECT * FROM section_homepage", (error, results) => {
         if (error) {
           reject(error);
         } else {

@@ -2,16 +2,26 @@ const db = require("../../db/db_config");
 exports.createReview = (req, res) => {
   const newReviewData = req.body;
 
+  if (
+    !newReviewData.firstName ||
+    !newReviewData.containt ||
+    !newReviewData.note
+  ) {
+    return res
+      .status(400)
+      .json({ error: "Certains champs sont manquants dans la requête." });
+  }
+
   const newReview = {
     ...newReviewData,
     CreatedAt: new Date(),
   };
 
   const query =
-    "INSERT INTO Review (FirstName, Containt, Rank, CreatedAt) VALUES (?, ?, ?, NOW())";
+    "INSERT INTO review (firstName, containt, note,status, createdAt) VALUES (?, ?, ?, 1, NOW())";
 
-  const values = [newReview.FirstName, newReview.Containt, newReview.Rank];
-
+  const values = [newReview.firstName, newReview.containt, newReview.note];
+  console.log("Valeurs à insérer :", values);
   db.promise()
     .execute(query, values)
     .then(([results]) => {
