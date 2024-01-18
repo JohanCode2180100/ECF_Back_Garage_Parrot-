@@ -1,54 +1,99 @@
 const db = require("../../db/db_config");
+const multer = require("multer");
 
-exports.createCar = (req, res) => {
-  const newCarData = req.body;
-
-  const newCar = {
-    ...newCarData,
-    CreatedAt: new Date(),
-  };
-
-  const query =
-    "INSERT INTO second_hand_car (brand, model, year, price, kilometer, picture, description, createdAt) VALUES (?,?, ?, ?, ?, ?, ?, NOW())";
-
-  const values = [
-    newCar.brand,
-    newCar.model,
-    newCar.year,
-    newCar.price,
-    newCar.kilometer,
-    newCar.picture,
-    newCar.description,
-  ];
-
-  db.promise()
-    .execute(query, values)
-    .then(([results]) => {
-      console.log("Nouvelle voiture insérée avec succès !");
-      const message = `Le véhicule ${newCar.Brand} a bien été enregistré`;
-      res.json({ message, newCar });
-    })
-    .catch((err) => {
-      console.error("Erreur lors de l'insertion :", err);
-      res
-        .status(500)
-        .json({ error: "Erreur lors de l'insertion en base de données" });
-    });
+const MIME_TYPE_MAP = {
+  "image/png": "png",
+  "image/jpeg": "jpg",
+  "image.jpg": "jpg",
 };
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error("Type MIME invalide");
+    if (isValid) {
+      error = null;
+    }
+    cb(null, "./images");
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname.toLowerCase().split(" ").join("-");
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    cb(null, name + "-" + Date.now() + "." + ext);
+  },
+});
+
+const upload = multer({ storage: storage }).single("image");
+
+exports.createCar = (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.error("Erreur lors du téléchargement du fichier :", err);
+      return res
+        .status(500)
+        .json({ error: "Erreur lors du téléchargement du fichier" });
+    }
+
+    const newCarData = req.body;
+    const imagePath = req.file ? req.file.filename : null;
+
+    const newCar = {
+      ...newCarData,
+      image: imagePath, // chemin de mon image
+      CreatedAt: new Date(),
+    };
+
+    const query =
+      "INSERT INTO second_hand_car (brand, model, year, price, kilometer, image, description, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+
+    const values = [
+      newCar.brand,
+      newCar.model,
+      newCar.year,
+      newCar.price,
+      newCar.kilometer,
+      newCar.image,
+      newCar.description,
+    ];
+
+    db.promise()
+      .execute(query, values)
+      .then(([results]) => {
+        console.log("Nouvelle voiture insérée avec succès !");
+        const message = `Le véhicule ${newCar.brand} a bien été enregistré`;
+        const carWithImagePath = {
+          ...newCar,
+          image: `http://localhost:3000/images/${newCar.image}`,
+        };
+        res.json({ message, car: carWithImagePath });
+      })
+      .catch((err) => {
+        console.error("Erreur lors de l'insertion :", err);
+        res
+          .status(500)
+          .json({ error: "Erreur lors de l'insertion en base de données" });
+      });
+  });
+};
+
+// Reste du code inchangé pour updatedCar et deleteCar...
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------UPDATED CAR------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 exports.updatedCar = (req, res) => {
   const updatedCarByIdDatabase = (id, carData) => {
     return new Promise((resolve, reject) => {
       db.query(
         "UPDATE second_hand_car SET brand = ?, model = ?, year = ?, price = ?, kilometer = ?, picture = ?, description = ? WHERE second_hand_car_id = ?",
         [
-          carData.Brand,
-          carData.Model,
-          carData.Year,
-          carData.Price,
-          carData.Kilometer,
-          carData.Picture,
-          carData.Description,
+          carData.brand,
+          carData.model,
+          carData.year,
+          carData.price,
+          carData.kilometer,
+          carData.image,
+          carData.description,
           id,
         ],
         (error, results) => {
@@ -83,6 +128,10 @@ exports.updatedCar = (req, res) => {
       });
     });
 };
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------DELETED CAR------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 exports.deleteCar = (req, res) => {
   const deleteCarByIdDatabase = (id) => {

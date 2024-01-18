@@ -11,6 +11,7 @@ const isAuth = require("../../middleware/is-auth");
 /* ------------------------------------------------------------------------------------------
 -----------------------------------------ADMIN ROUTES----------------------------------------
 --------------------------------------------------------------------------------------------- */
+
 //CAR
 router.post("/api/second-hand-car", isAuth, models.createCar);
 router.put("/api/second-hand-car/:id", isAuth, models.updatedCar);

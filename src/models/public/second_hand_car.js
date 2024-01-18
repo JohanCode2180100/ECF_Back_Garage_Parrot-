@@ -1,5 +1,7 @@
 const db = require("../../db/db_config");
 
+
+
 exports.getAllCars = (req, res) => {
   const getCarsDatabase = () => {
     if (req.query.name) {

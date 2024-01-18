@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const adminRoutes = require("./src/controllers/adminRoutes");
 const publicRoutes = require("./src/controllers/publicRoutes");
 const authRoutes = require("./src/controllers/auth");
-
+const path = require("path");
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -19,7 +19,9 @@ app
     bodyParser.urlencoded({
       extended: true,
     })
-  )
+  );
+app
+  .use("/images", express.static(path.join(__dirname, "images")))
 
   .use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
