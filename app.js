@@ -19,8 +19,8 @@ app
     bodyParser.urlencoded({
       extended: true,
     })
-  );
-app
+  )
+
   .use("/images", express.static(path.join(__dirname, "images")))
 
   .use((req, res, next) => {
