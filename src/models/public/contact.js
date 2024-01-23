@@ -3,7 +3,6 @@ const db = require("../../db/db_config");
 exports.createContact = (req, res) => {
   const newFormData = req.body;
 
-  // verification supplémentaire données coté BackEND
   if (
     !newFormData.name ||
     !newFormData.firstName ||
@@ -22,7 +21,7 @@ exports.createContact = (req, res) => {
   };
 
   const query =
-    "INSERT INTO Contact_form (Name,FirstName, Adress, Email,Phone, Message) VALUES (?,?,?,?,?,?)";
+    "INSERT INTO Contact_form (name,firstName, adress, email,phone, message) VALUES (?,?,?,?,?,?)";
 
   const values = [
     form.name,

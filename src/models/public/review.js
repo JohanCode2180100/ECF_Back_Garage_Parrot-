@@ -14,7 +14,7 @@ exports.createReview = (req, res) => {
 
   const newReview = {
     ...newReviewData,
-    CreatedAt: new Date(),
+    createdAt: new Date(),
   };
 
   const query =
