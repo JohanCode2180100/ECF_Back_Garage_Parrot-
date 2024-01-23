@@ -1,14 +1,12 @@
 const db = require("../../db/db_config");
 
-
-
 exports.getAllCars = (req, res) => {
   const getCarsDatabase = () => {
     if (req.query.name) {
       const name = req.query.name;
       return new Promise((resolve, reject) => {
         db.query(
-          "SELECT * FROM second_hand_car WHERE name LIKE ? OR brand LIKE ?",
+          "SELECT * FROM second_hand_car WHERE model LIKE ? OR brand LIKE ?",
           [name + "%", name + "%"],
           (error, results) => {
             if (error) {

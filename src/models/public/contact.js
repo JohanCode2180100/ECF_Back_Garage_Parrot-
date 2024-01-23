@@ -1,16 +1,16 @@
-const db = require('../../db/db_config')
+const db = require("../../db/db_config");
 
 exports.createContact = (req, res) => {
   const newFormData = req.body;
 
   // verification supplémentaire données coté BackEND
   if (
-    !newFormData.Name ||
-    !newFormData.FirstName ||
-    !newFormData.Adress ||
-    !newFormData.Email ||
-    !newFormData.Phone ||
-    !newFormData.Message
+    !newFormData.name ||
+    !newFormData.firstName ||
+    !newFormData.adress ||
+    !newFormData.email ||
+    !newFormData.phone ||
+    !newFormData.message
   ) {
     return res.status(400).json({
       error: "Toutes les données obligatoires doivent être fournies.",
@@ -25,12 +25,12 @@ exports.createContact = (req, res) => {
     "INSERT INTO Contact_form (Name,FirstName, Adress, Email,Phone, Message) VALUES (?,?,?,?,?,?)";
 
   const values = [
-    form.Name,
-    form.FirstName,
-    form.Adress,
-    form.Email,
-    form.Phone,
-    form.Message,
+    form.name,
+    form.firstName,
+    form.adress,
+    form.email,
+    form.phone,
+    form.message,
   ];
 
   db.promise()

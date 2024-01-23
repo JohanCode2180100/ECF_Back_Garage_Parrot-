@@ -13,9 +13,9 @@ const isAuth = require("../../middleware/is-auth");
 --------------------------------------------------------------------------------------------- */
 
 //CAR
-router.post("/api/second-hand-car", isAuth, models.createCar);
-router.put("/api/second-hand-car/:id", isAuth, models.updatedCar);
-router.delete("/api/second-hand-car/:id", isAuth, models.deleteCar);
+router.post("/api/second_hand_car", isAuth, models.createCar);
+router.put("/api/second_hand_car/:id", isAuth, models.updatedCar);
+router.delete("/api/second_hand_car/:id", isAuth, models.deleteCar);
 //REVIEW
 router.get("/api/review", isAuth, reviewModels.getAllReview);
 router.get("/api/review/pending", isAuth, reviewModels.reviewsPending);
