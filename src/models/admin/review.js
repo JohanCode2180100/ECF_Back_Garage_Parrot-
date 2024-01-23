@@ -28,7 +28,7 @@ exports.getAllReview = (req, res) => {
 exports.reviewsPending = (req, res) => {
   const getReviewPendingStatus = () => {
     return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM review WHERE Status ='1'", (error, results) => {
+      db.query("SELECT * FROM review WHERE status ='1'", (error, results) => {
         if (error) {
           reject(error);
         } else {
@@ -55,7 +55,7 @@ exports.updatedStatus = (req, res) => {
   const updatedStatusReviewByIdDatabase = (id, carData) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE review SET Status = 2 WHERE Review_id = ?",
+        "UPDATE review SET status = 2 WHERE review_id = ?",
         [id],
         (error, results) => {
           if (error) {

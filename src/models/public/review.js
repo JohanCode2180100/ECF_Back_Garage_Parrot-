@@ -40,7 +40,7 @@ exports.createReview = (req, res) => {
 exports.validatedReview = (req, res) => {
   const getReviewValidetedStatus = () => {
     return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM Review WHERE Status ='2'", (error, results) => {
+      db.query("SELECT * FROM review WHERE status ='2'", (error, results) => {
         if (error) {
           reject(error);
         } else {
