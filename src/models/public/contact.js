@@ -21,7 +21,7 @@ exports.createContact = (req, res) => {
   };
 
   const query =
-    "INSERT INTO Contact_form (name,firstName, adress, email,phone, message) VALUES (?,?,?,?,?,?)";
+    "INSERT INTO contact_form (name,firstName, adress, email,phone, message) VALUES (?,?,?,?,?,?)";
 
   const values = [
     form.name,
