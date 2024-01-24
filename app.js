@@ -21,8 +21,6 @@ app
     })
   )
 
-  .use("/images", express.static(path.join(__dirname, "images")))
-
   .use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -35,6 +33,7 @@ app
     );
     next();
   })
+  .use("/images", express.static(path.join(__dirname, "images")))
 
   //routes
   .use(authRoutes)
