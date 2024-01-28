@@ -37,3 +37,36 @@ exports.updatedHomePage = (req, res) => {
       });
     });
 };
+
+exports.getHomePageById = (req, res) => {
+  const getHome_PageByID = (id) => {
+    return new Promise((resolve, reject) => {
+      // Ajoutez des parenthèses ici
+      db.query(
+        "SELECT * FROM section_homepage WHERE section_homepage_id = ? ",
+        [id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        }
+      );
+    }); // Terminez la parenthèse ici
+  };
+
+  const id = req.params.id;
+
+  getHome_PageByID(id)
+    .then((homePage) => {
+      const message = "Récupération du contenu";
+      res.json({ message, homePage });
+    })
+    .catch((err) => {
+      console.error("Erreur lors de la récupération du contenu", err);
+      res.status(500).json({
+        err: "Une erreur s'est produite lors de la récupération du contenu !!!",
+      });
+    });
+};
