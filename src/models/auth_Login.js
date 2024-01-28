@@ -23,7 +23,6 @@ exports.login = (req, res) => {
       }
 
       user = results[0];
-      console.log(user);
       const isPasswordValid = bcrypt.compare(userPassword, user.password);
 
       if (!isPasswordValid) {

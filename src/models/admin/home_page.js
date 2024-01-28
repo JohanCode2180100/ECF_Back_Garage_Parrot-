@@ -1,11 +1,11 @@
 const db = require("../../db/db_config");
 
-exports.updatedTitle = (req, res) => {
-  const updatedTitle = (id, ContainTitle) => {
+exports.updatedHomePage = (req, res) => {
+  const updatedHomePage = (id, homePage) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE section_homepage SET Title = ? WHERE section_homepage_id = ?",
-        [ContainTitle.title, id],
+        "UPDATE section_homepage SET Title = ?, content = ? WHERE section_homepage_id = ?",
+        [homePage.title, homePage.content, id],
         (error, results) => {
           if (error) {
             reject(error);
@@ -17,17 +17,17 @@ exports.updatedTitle = (req, res) => {
     });
   };
   const id = parseInt(req.params.id);
-  const ContainTitle = req.body;
+  const homePage = req.body;
 
-  updatedTitle(id, ContainTitle)
+  updatedHomePage(id, homePage)
     .then((results) => {
       if (results.affectedRows === 0) {
         res.status(404).json({
           error: `le titre n° ${id} n'a pas été trouvé.`,
         });
       } else {
-        const message = `Le titre n° ${id} a bien été modifié.`;
-        res.json({ message, ContainTitle });
+        const message = `Le titre n° ${id} et son contenu ont bien été modifiés.`;
+        res.json({ message, homePage });
       }
     })
     .catch((error) => {

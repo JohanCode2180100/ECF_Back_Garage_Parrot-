@@ -27,7 +27,7 @@ router.delete("/api/contact/:id", isAuth, contactModels.deleteContact);
 //HOURS
 router.put("/api/hours/:id", isAuth, hoursModels.updatedHours);
 //HOME_PAGE
-router.put("/api/home_page", isAuth, homePageModels.updatedTitle);
+router.put("/api/home_page/:id", isAuth, homePageModels.updatedHomePage);
 //SECTION
 router.put("/api/section/:id", isAuth, sectionModels.updatedSection);
 

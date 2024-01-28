@@ -13,17 +13,17 @@ exports.getHomepage = (req, res) => {
   };
   getHomePage()
     .then((title) => {
-      const message = "Le titre de la page d'accueil a été récupéré";
+      const message = "Le contenu de la page d'accueil a été récupéré";
       res.json({ message, title });
     })
     .catch((err) => {
       console.error(
-        "Erreur lors de la récupération du titre de la page d'accueil a été récupéré",
+        "Erreur lors de la récupération du contenu de la page d'accueil a été récupéré",
         err
       );
       res.status(500).json({
         error:
-          "Une erreur s'est produite lors de la récupération du titre de la page d'accueil a été récupéré",
+          "Une erreur s'est produite lors de la récupération du contenu de la page d'accueil",
       });
     });
 };
