@@ -4,7 +4,7 @@ exports.updatedHomePage = (req, res) => {
   const updatedHomePage = (id, homePage) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE section_homepage SET Title = ?, content = ? WHERE section_homepage_id = ?",
+        "UPDATE section_homepage SET title = ?, content = ? WHERE section_homepage_id = ?",
         [homePage.title, homePage.content, id],
         (error, results) => {
           if (error) {
