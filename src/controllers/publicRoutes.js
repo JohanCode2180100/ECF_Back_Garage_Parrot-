@@ -7,12 +7,14 @@ const sectionModels = require("../models/public/section");
 const carModels = require("../models/public/second_hand_car");
 const hoursModels = require("../models/public/hours");
 const homeModels = require("../models/public/home");
+
 /* ------------------------------------------------------------------------------------------
 -----------------------------------------PUBLIC ROUTES------------------------------------
 --------------------------------------------------------------------------------------------- */
 
 //CONTACT
 router.post("/api/contact", contactModels.createContact);
+
 //REVIEW
 router.get("/api/review/valid", reviewModels.validatedReview);
 router.post("/api/review", reviewModels.createReview);
