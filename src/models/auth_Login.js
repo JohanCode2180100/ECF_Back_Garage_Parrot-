@@ -6,8 +6,6 @@ require("dotenv").config();
 exports.login = (req, res) => {
   const { userEmail, userPassword } = req.body;
 
-  console.log("Req Body in login:", req.body);
-
   if (!userEmail || !userPassword) {
     return res
       .status(400)
@@ -49,11 +47,8 @@ exports.login = (req, res) => {
       const user = results[0].password;
       bcrypt.compare(userPassword, user, function (err, match) {
         if (err) {
-          console.log("compare false");
         }
         if (match) {
-          console.log("compare true");
-          console.log(user);
           const token = jwt.sign({ email: user.email }, process.env.JWT_TOKEN, {
             expiresIn: "1h",
           });

@@ -1,11 +1,15 @@
 const db = require("../../db/db_config");
 const bcrypt = require("bcrypt");
 exports.addAdmin = (req, res) => {
-  const saltRounds = 12; // Tour de Hachage = 12
-
+  const saltRounds = 10;
   const { userEmail, userPassword } = req.body;
 
-  
+  if (!userEmail & !userPassword) {
+    return res
+      .status(400)
+      .json({ message: "Les champs email et mot de passe sont requis." });
+  }
+
   bcrypt.hash(userPassword, saltRounds, (hashErr, hashedPassword) => {
     if (hashErr) {
       console.error("Erreur lors du hachage du mot de passe :", hashErr);
@@ -13,8 +17,6 @@ exports.addAdmin = (req, res) => {
         .status(500)
         .json({ message: "Erreur lors du hachage du mot de passe" });
     }
-
-    console.log("Mot de passe hashé :", hashedPassword);
 
     const adminInsertQuery = `
       INSERT INTO employes (email, password)
