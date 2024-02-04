@@ -1,16 +1,48 @@
 const db = require("../../db/db_config");
 
+exports.getHoursId = (req, res) => {
+  const getHome_PageByID = (id) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "SELECT * FROM opening_hours WHERE opening_hours_id = ? ",
+        [id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        }
+      );
+    });
+  };
+  const id = req.params.id;
+
+  getHome_PageByID(id)
+    .then((hours) => {
+      const message = "Récupération du jour de la semaine";
+      res.json({ message, hours });
+      console.log(hours);
+    })
+    .catch((err) => {
+      console.error("Erreur lors de la récupération du contenu", err);
+      res.status(500).json({
+        err: "Une erreur s'est produite lors de la récupération du contenu !!!",
+      });
+    });
+};
+
 exports.updatedHours = (req, res) => {
   const updatedHours = (id, hoursData) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE opening_hours SET Days = ?, Open_AM = ?, Close_AM = ?, Open_PM = ?, Close_PM = ? WHERE opening_hours_id = ?",
+        "UPDATE opening_hours SET days = ?, open_AM = ?, close_AM = ?, open_PM = ?, close_PM = ? WHERE opening_hours_id = ?",
         [
-          hoursData.Days,
-          hoursData.Open_AM,
-          hoursData.Close_AM,
-          hoursData.Open_PM,
-          hoursData.Close_PM,
+          hoursData.days,
+          hoursData.open_AM,
+          hoursData.close_AM,
+          hoursData.open_PM,
+          hoursData.close_PM,
           id,
         ],
         (error, results) => {
@@ -30,10 +62,10 @@ exports.updatedHours = (req, res) => {
     .then((results) => {
       if (results.affectedRows === 0) {
         res.status(404).json({
-          error: `L'horaire de ${hoursData.Days} n'a pas été trouvé.`,
+          error: `L'horaire de ${hoursData.days} n'a pas été trouvé.`,
         });
       } else {
-        const message = `L'horaire de ${hoursData.Days} a bien été modifié.`;
+        const message = `L'horaire de ${hoursData.days} a bien été modifié.`;
         res.json({ message, hoursData });
       }
     })

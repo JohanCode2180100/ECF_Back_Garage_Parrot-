@@ -25,6 +25,7 @@ router.delete("/api/review/:id", isAuth, reviewModels.deleteReview);
 router.get("/api/contact", isAuth, contactModels.getContact);
 router.delete("/api/contact/:id", isAuth, contactModels.deleteContact);
 //HOURS
+router.get("/api/hours/:id", isAuth, hoursModels.getHoursId);
 router.put("/api/hours/:id", isAuth, hoursModels.updatedHours);
 //HOME_PAGE
 router.get("/api/home_page/:id", isAuth, homePageModels.getHomePageById);
