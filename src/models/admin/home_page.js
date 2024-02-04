@@ -41,9 +41,8 @@ exports.updatedHomePage = (req, res) => {
 exports.getHomePageById = (req, res) => {
   const getHome_PageByID = (id) => {
     return new Promise((resolve, reject) => {
-      // Ajoutez des parenthèses ici
       db.query(
-        "SELECT * FROM section_homepage WHERE section_homepage_id = ? ",
+        "SELECT * FROM section_homepage WHERE section_homePage_id = ? ",
         [id],
         (error, results) => {
           if (error) {
@@ -53,7 +52,7 @@ exports.getHomePageById = (req, res) => {
           }
         }
       );
-    }); // Terminez la parenthèse ici
+    });
   };
 
   const id = req.params.id;
