@@ -4,7 +4,7 @@ exports.updatedHomePage = (req, res) => {
   const updatedHomePage = (id, homePage) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE section_homepage SET title = ?, content = ? WHERE section_homepage_id = ?",
+        "UPDATE section_homePage SET title = ?, content = ? WHERE section_homePage_id = ?",
         [homePage.title, homePage.content, id],
         (error, results) => {
           if (error) {
@@ -42,7 +42,7 @@ exports.getHomePageById = (req, res) => {
   const getHome_PageByID = (id) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT * FROM section_homepage WHERE section_homePage_id = ? ",
+        "SELECT * FROM section_homePage WHERE section_homePage_id = ? ",
         [id],
         (error, results) => {
           if (error) {
