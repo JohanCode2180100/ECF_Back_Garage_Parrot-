@@ -1,9 +1,8 @@
 const express = require("express");
 
 const router = express.Router();
-const loginModels = require("../models/auth_Login");
-const UserModels = require("../models/public/User");
+const loginModels = require("../models/public/auth_Login");
 
 router.post("/api/login", loginModels.login);
-router.post("/api/addAdmin", UserModels.addAdmin);
+
 module.exports = router;

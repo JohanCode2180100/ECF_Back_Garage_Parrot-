@@ -6,6 +6,7 @@ const contactModels = require("../models/admin/contact");
 const hoursModels = require("../models/admin/hours");
 const homePageModels = require("../models/admin/home_page");
 const sectionModels = require("../models/admin/section");
+const UserModels = require("../models/admin/User");
 const isAuth = require("../../middleware/is-auth");
 
 /* ------------------------------------------------------------------------------------------
@@ -32,5 +33,13 @@ router.get("/api/home_page/:id", isAuth, homePageModels.getHomePageById);
 router.put("/api/home_page/:id", isAuth, homePageModels.updatedHomePage);
 //SECTION
 router.put("/api/section/:id", isAuth, sectionModels.updatedSection);
+
+//AddAdmin
+router.post(
+  "/api/userValidationExists",
+  isAuth,
+  UserModels.userValidationExists
+);
+router.post("/api/addAdmin", isAuth, UserModels.addAdmin);
 
 module.exports = router;

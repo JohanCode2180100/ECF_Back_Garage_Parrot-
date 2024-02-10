@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const db = require("../db/db_config");
+const db = require("../../db/db_config");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -40,7 +40,6 @@ exports.login = (req, res) => {
 
   getAccount()
     .then((results) => {
-      console.log(results);
       if (!results || results.length === 0 || !results[0].password) {
         return res.status(401).json({ message: "Utilisateur non trouvé" });
       }
