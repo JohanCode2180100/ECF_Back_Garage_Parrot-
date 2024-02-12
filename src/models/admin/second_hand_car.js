@@ -84,7 +84,7 @@ exports.updatedCar = (req, res) => {
   const updatedCarByIdDatabase = (id, carData) => {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE second_hand_car SET brand = ?, model = ?, year = ?, price = ?, kilometer = ?, picture = ?, description = ? WHERE second_hand_car_id = ?",
+        "UPDATE second_hand_car SET brand = ?, model = ?, year = ?, price = ?, kilometer = ?, image = ?, description = ? WHERE second_hand_car_id = ?",
         [
           carData.brand,
           carData.model,
