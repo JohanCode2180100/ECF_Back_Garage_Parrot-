@@ -64,14 +64,26 @@ exports.createCar = (req, res) => {
     //test REGEX
 
     if (!regexName.test(newCar.brand)) {
-      return res.status(400).json({ message: "Le nom n'est pas valide." });
+      return res.status(400).json({ message: "Le marque n'est pas valide." });
     }
     if (!regexModel.test(newCar.model)) {
-      return res.status(400).json({ message: "Le nom n'est pas valide." });
+      return res.status(400).json({ message: "Le model n'est pas valide." });
     }
-    if (!regexYPK.test(newCar.year && newCar.price && newCar.kilometer)) {
-      return res.status(400).json({ message: "Le nom n'est pas valide." });
-    }
+    // if (!regexYPK.test(newCar.year)) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "numérique uniquement pour année" });
+    // }
+    // if (!regexYPK.test(newCar.price)) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "numérique uniquement pour prix" });
+    // }
+    // if (!regexYPK.test(newCar.kilometer)) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "numérique uniquement pour kilometre" });
+    // }
 
     db.promise()
       .execute(query, values)
@@ -80,7 +92,7 @@ exports.createCar = (req, res) => {
         const message = `Le véhicule ${newCar.brand} a bien été enregistré`;
         const carWithImagePath = {
           ...newCar,
-          image: `http://localhost:3000/images/${newCar.image}`,
+          image: `https://garageparrotbackend-29c911d2d7f6.herokuapp.com/images/${newCar.image}`,
         };
         res.json({ message, car: carWithImagePath });
       })
