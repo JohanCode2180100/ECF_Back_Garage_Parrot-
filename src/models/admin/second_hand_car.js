@@ -1,6 +1,11 @@
 const db = require("../../db/db_config");
 const multer = require("multer");
 
+//REGEX
+const regexName = /^[A-Za-z]+$/;
+const regexModel = /^[A-Za-z0-9\s-]+$/;
+const regexYPK = /^0[1-9]([-. ]?[0-9]{2}){4}$/;
+
 const MIME_TYPE_MAP = {
   "image/png": "png",
   "image/jpeg": "jpg",
@@ -56,6 +61,18 @@ exports.createCar = (req, res) => {
       newCar.description,
     ];
 
+    //test REGEX
+
+    if (!regexName.test(newCar.brand)) {
+      return res.status(400).json({ message: "Le nom n'est pas valide." });
+    }
+    if (!regexModel.test(newCar.model)) {
+      return res.status(400).json({ message: "Le nom n'est pas valide." });
+    }
+    if (!regexYPK.test(newCar.year && newCar.price && newCar.kilometer)) {
+      return res.status(400).json({ message: "Le nom n'est pas valide." });
+    }
+
     db.promise()
       .execute(query, values)
       .then(([results]) => {
@@ -106,6 +123,16 @@ exports.updatedCar = (req, res) => {
   };
   const id = parseInt(req.params.id);
   const carData = req.body;
+
+  if (!regexName.test(carData.brand)) {
+    return res.status(400).json({ message: "Le nom n'est pas valide." });
+  }
+  if (!regexModel.test(carData.model)) {
+    return res.status(400).json({ message: "Le nom n'est pas valide." });
+  }
+  if (!regexYPK.test(carData.year && carData.price && carData.kilometer)) {
+    return res.status(400).json({ message: "Le nom n'est pas valide." });
+  }
 
   updatedCarByIdDatabase(id, carData)
     .then((results) => {

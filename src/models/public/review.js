@@ -2,6 +2,10 @@ const db = require("../../db/db_config");
 exports.createReview = (req, res) => {
   const newReviewData = req.body;
 
+  const regexFirstname = /^[A-Za-z]+$/;
+  const regexContaint = /^[A-Za-z0-9() -]+$/;
+  const regexNote = /^[0-9]+$/;
+
   if (
     !newReviewData.firstName ||
     !newReviewData.containt ||
@@ -10,6 +14,25 @@ exports.createReview = (req, res) => {
     return res
       .status(400)
       .json({ error: "Certains champs sont manquants dans la requête." });
+  }
+  //test regex
+  if (!regexFirstname.test(newReviewData.firstName)) {
+    return (
+      
+      res.status(400).json({ message: "Le prénom n'est pas valide" })
+    );
+  }
+  if (!regexContaint.test(newReviewData.containt)) {
+    return (
+      
+      res.status(400).json({ message: "Le contenu n'est pas valide" })
+    );
+  }
+  if (!regexNote.test(newReviewData.note)) {
+    return (
+      
+      res.status(400).json({ message: "La note n'est pas valide" })
+    );
   }
 
   const newReview = {

@@ -3,6 +3,9 @@ const db = require("../../db/db_config");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+const regexEmail =
+  /([A-Z]|[a-z]|[^<>()\[\]\\\/.,;:\s@"]){4,}\@([A-Z]|[a-z]|[^<>()\[\]\\\/.,;:\s@"]){4,}\.(com|net|fr)/;
+
 exports.login = (req, res) => {
   const { userEmail, userPassword } = req.body;
 
@@ -10,6 +13,13 @@ exports.login = (req, res) => {
     return res
       .status(400)
       .json({ message: "Les champs email et mot de passe sont requis." });
+  }
+
+  //test regex
+  if (!regexEmail.test(userEmail)) {
+    return res
+      .status(400)
+      .json({ message: "L'adresse email n'est pas valide." });
   }
   const getAccount = () => {
     return new Promise((resolve) => {

@@ -58,6 +58,23 @@ exports.updatedHours = (req, res) => {
   const id = parseInt(req.params.id);
   const hoursData = req.body;
 
+  const regexDay = /^[A-Za-z]+$/;
+  const regexHours = /^(?:0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+
+  if (!regexDay.test(hoursData.days)) {
+    return res.status(400).json({ message: "Le contenu n'est pas valide" });
+  }
+  if (
+    !regexHours.test(
+      hoursData.open_AM &&
+        hoursData.close_AM &&
+        hoursData.open_PM &&
+        hoursData.close_PM
+    )
+  ) {
+    return res.status(400).json({ message: "Le contenu n'est pas valide" });
+  }
+
   updatedHours(id, hoursData)
     .then((results) => {
       if (results.affectedRows === 0) {

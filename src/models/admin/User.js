@@ -1,6 +1,9 @@
 const db = require("../../db/db_config");
 const bcrypt = require("bcrypt");
 
+const regexEmail =
+  /([A-Z]|[a-z]|[^<>()\[\]\\\/.,;:\s@"]){4,}\@([A-Z]|[a-z]|[^<>()\[\]\\\/.,;:\s@"]){4,}\.(com|net|fr)/;
+
 exports.userValidationExists = (req, res) => {
   const { email } = req.body;
 
@@ -8,6 +11,13 @@ exports.userValidationExists = (req, res) => {
     return res
       .status(400)
       .json({ message: "Les champs email et mot de passe sont requis." });
+  }
+
+  //test regex
+  if (!regexEmail.test(email)) {
+    return res
+      .status(400)
+      .json({ message: "L'adresse email n'est pas valide." });
   }
 
   const getSearchMail = () => {
@@ -44,6 +54,12 @@ exports.addAdmin = (req, res) => {
     return res
       .status(400)
       .json({ message: "Les champs email et mot de passe sont requis." });
+  }
+
+  if (!regexEmail.test(email)) {
+    return res
+      .status(400)
+      .json({ message: "L'adresse email n'est pas valide." });
   }
 
   bcrypt.hash(password, saltRounds, (hashErr, hashedPassword) => {

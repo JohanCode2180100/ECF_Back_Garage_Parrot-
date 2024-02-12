@@ -19,6 +19,16 @@ exports.updatedHomePage = (req, res) => {
   const id = parseInt(req.params.id);
   const homePage = req.body;
 
+  const regexHomePage =
+    /^[a-zA-Z0-9\s'"\.;:?À-ÖØ-öø-ÿ!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]+$/u;
+
+  if (!regexHomePage.test(homePage.title)) {
+    return res.status(400).json("Le contenu n'est pas valide ");
+  }
+  if (!regexHomePage.test(homePage.content)) {
+    return res.status(400).json("Le contenu n'est pas valide ");
+  }
+
   updatedHomePage(id, homePage)
     .then((results) => {
       if (results.affectedRows === 0) {
