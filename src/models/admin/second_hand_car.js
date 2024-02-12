@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     if (isValid) {
       error = null;
     }
-    cb(null, "localHost:4200/src/assets/picture");
+    cb(error, "images");
   },
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(" ").join("-");
@@ -33,9 +33,10 @@ exports.createCar = (req, res) => {
         .status(500)
         .json({ error: "Erreur lors du téléchargement du fichier" });
     }
+    const url = req.protocol + "://" + req.get("host");
 
     const newCarData = req.body;
-    const imagePath = req.file ? req.file.filename : null;
+    const imagePath = url + "/images/" + req.file.filename;
 
     const newCar = {
       ...newCarData,
@@ -63,7 +64,7 @@ exports.createCar = (req, res) => {
         const message = `Le véhicule ${newCar.brand} a bien été enregistré`;
         const carWithImagePath = {
           ...newCar,
-          image: `http://localhost:3000/images/${newCar.image}`,
+          image: imagePath,
         };
         res.json({ message, car: carWithImagePath });
       })
