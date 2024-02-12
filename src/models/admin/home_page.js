@@ -20,10 +20,9 @@ exports.updatedHomePage = (req, res) => {
   const homePage = req.body;
 
   const regexHomePage =
-    /^[a-zA-Z0-9\s'"\.;:?À-ÖØ-öø-ÿ!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]+$/u;
-
+    /^[\p{L}\p{N}\s'"\.;:?À-ÖØ-öø-ÿ!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]+$/u;
   if (!regexHomePage.test(homePage.title)) {
-    return res.status(400).json("Le contenu n'est pas valide ");
+    return res.status(400).json("Le titre n'est pas valide ");
   }
   if (!regexHomePage.test(homePage.content)) {
     return res.status(400).json("Le contenu n'est pas valide ");

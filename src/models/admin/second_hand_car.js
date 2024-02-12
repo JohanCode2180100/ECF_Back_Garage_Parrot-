@@ -4,7 +4,7 @@ const multer = require("multer");
 //REGEX
 const regexName = /^[A-Za-z]+$/;
 const regexModel = /^[A-Za-z0-9\s-]+$/;
-const regexYPK = /^0[1-9]([-. ]?[0-9]{2}){4}$/;
+const regexYPK = /^\d+$/;
 
 const MIME_TYPE_MAP = {
   "image/png": "png",
@@ -69,21 +69,21 @@ exports.createCar = (req, res) => {
     if (!regexModel.test(newCar.model)) {
       return res.status(400).json({ message: "Le model n'est pas valide." });
     }
-    // if (!regexYPK.test(newCar.year)) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: "numérique uniquement pour année" });
-    // }
-    // if (!regexYPK.test(newCar.price)) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: "numérique uniquement pour prix" });
-    // }
-    // if (!regexYPK.test(newCar.kilometer)) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: "numérique uniquement pour kilometre" });
-    // }
+    if (!regexYPK.test(newCar.year)) {
+      return res
+        .status(400)
+        .json({ message: "numérique uniquement pour année" });
+    }
+    if (!regexYPK.test(newCar.price)) {
+      return res
+        .status(400)
+        .json({ message: "numérique uniquement pour prix" });
+    }
+    if (!regexYPK.test(newCar.kilometer)) {
+      return res
+        .status(400)
+        .json({ message: "numérique uniquement pour kilometre" });
+    }
 
     db.promise()
       .execute(query, values)
@@ -140,9 +140,6 @@ exports.updatedCar = (req, res) => {
     return res.status(400).json({ message: "Le nom n'est pas valide." });
   }
   if (!regexModel.test(carData.model)) {
-    return res.status(400).json({ message: "Le nom n'est pas valide." });
-  }
-  if (!regexYPK.test(carData.year && carData.price && carData.kilometer)) {
     return res.status(400).json({ message: "Le nom n'est pas valide." });
   }
 
