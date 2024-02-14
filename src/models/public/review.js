@@ -2,7 +2,7 @@ const db = require("../../db/db_config");
 exports.createReview = (req, res) => {
   const newReviewData = req.body;
 
-  const regexFirstname = /^[A-Za-z]+$/;
+  const regexFirstname = /^[A-Za-zéèÉÈ\\- ]+$/;
   const regexContaint = /^[A-Za-z0-9() -]+$/;
   const regexNote = /^[0-9]+$/;
 

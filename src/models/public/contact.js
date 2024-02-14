@@ -3,7 +3,7 @@ const db = require("../../db/db_config");
 exports.createContact = (req, res) => {
   const newFormData = req.body;
 
-  const regexName = /^[A-Za-z]+$/;
+  const regexName = /^[A-Za-zéèÉÈ\\- ]+$/;
   const regexAdress = /^[A-Za-z0-9\s-]+$/;
   const regexEmail =
     /([A-Z]|[a-z]|[^<>()\[\]\\\/.,;:\s@"]){4,}\@([A-Z]|[a-z]|[^<>()\[\]\\\/.,;:\s@"]){4,}\.(com|net|fr)/;
