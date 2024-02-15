@@ -2,7 +2,7 @@ const db = require("../../db/db_config");
 exports.createReview = (req, res) => {
   const newReviewData = req.body;
 
-  const regexFirstname = /^[A-Za-zéèÉÈ\\- ]+$/;
+  const regexFirstname = /^[A-Za-z0-9\s-]+$/;
   const regexContaint = /^[A-Za-z0-9() -]+$/;
   const regexNote = /^[0-9]+$/;
 
@@ -17,22 +17,13 @@ exports.createReview = (req, res) => {
   }
   //test regex
   if (!regexFirstname.test(newReviewData.firstName)) {
-    return (
-      
-      res.status(400).json({ message: "Le prénom n'est pas valide" })
-    );
+    return res.status(400).json({ message: "Le prénom n'est pas valide" });
   }
   if (!regexContaint.test(newReviewData.containt)) {
-    return (
-      
-      res.status(400).json({ message: "Le contenu n'est pas valide" })
-    );
+    return res.status(400).json({ message: "Le contenu n'est pas valide" });
   }
   if (!regexNote.test(newReviewData.note)) {
-    return (
-      
-      res.status(400).json({ message: "La note n'est pas valide" })
-    );
+    return res.status(400).json({ message: "La note n'est pas valide" });
   }
 
   const newReview = {

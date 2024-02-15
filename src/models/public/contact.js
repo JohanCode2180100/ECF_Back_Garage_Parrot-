@@ -3,8 +3,7 @@ const db = require("../../db/db_config");
 exports.createContact = (req, res) => {
   const newFormData = req.body;
 
-  const regexName = /^[A-Za-zéèÉÈ\\- ]+$/;
-  const regexAdress = /^[A-Za-z0-9\s-]+$/;
+  const regexNAmeAndAdress = /^[A-Za-z0-9\s-]+$/;
   const regexEmail =
     /([A-Z]|[a-z]|[^<>()\[\]\\\/.,;:\s@"]){4,}\@([A-Z]|[a-z]|[^<>()\[\]\\\/.,;:\s@"]){4,}\.(com|net|fr)/;
   const regexPhone = /^0[1-9]([-. ]?[0-9]{2}){4}$/;
@@ -22,13 +21,13 @@ exports.createContact = (req, res) => {
     });
   }
 
-  if (!regexName.test(newFormData.name)) {
+  if (!regexNAmeAndAdress.test(newFormData.name)) {
     return res.status(400).json({ message: "Le nom n'est pas valide." });
   }
-  if (!regexName.test(newFormData.firstName)) {
+  if (!regexNAmeAndAdress.test(newFormData.firstName)) {
     return res.status(400).json({ message: "Le prénom n'est pas valide." });
   }
-  if (!regexAdress.test(newFormData.adress)) {
+  if (!regexNAmeAndAdress.test(newFormData.adress)) {
     return res.status(400).json({ message: "L'adresse n'est pas valide." });
   }
   if (!regexEmail.test(newFormData.email)) {
