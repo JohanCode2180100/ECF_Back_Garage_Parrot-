@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
     if (isValid) {
       error = null;
     }
-    cb(error, "/images");
+    cb(error, "images");
   },
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(" ").join("-");
@@ -38,9 +38,10 @@ exports.createCar = (req, res) => {
         .status(500)
         .json({ error: "Erreur lors du téléchargement du fichier" });
     }
+    const url = req.protocol + "://" + req.get("host");
 
     const newCarData = req.body;
-    const imagePath = req.file ? req.file.filename : null;
+    const imagePath = url + "/images/" + req.file.filename;
 
     const newCar = {
       ...newCarData,
@@ -92,7 +93,7 @@ exports.createCar = (req, res) => {
         const message = `Le véhicule ${newCar.brand} a bien été enregistré`;
         const carWithImagePath = {
           ...newCar,
-          image: `https://garageparrotbackend-29c911d2d7f6.herokuapp.com/images/${newCar.image}`,
+          image: imagePath,
         };
         res.json({ message, car: carWithImagePath });
       })
