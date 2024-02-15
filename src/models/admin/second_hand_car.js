@@ -6,7 +6,6 @@ const regexName = /^[A-Za-z]+$/;
 const regexModel = /^[A-Za-z0-9\s-]+$/;
 const regexYPK = /^\d+$/;
 
-
 const MIME_TYPE_MAP = {
   "image/png": "png",
   "image/jpeg": "jpg",
@@ -20,7 +19,7 @@ const storage = multer.diskStorage({
     if (isValid) {
       error = null;
     }
-    cb(null, "./images");
+    cb(error, "/images");
   },
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(" ").join("-");
