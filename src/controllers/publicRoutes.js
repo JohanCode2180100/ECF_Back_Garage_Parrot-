@@ -29,6 +29,6 @@ router.get("/api/second_hand_car", carModels.getAllCars);
 //HOURS
 router.get("/api/hours", hoursModels.getHours);
 //home heroku
-router.get("/", homeModels.getHome);
+// router.get("/",myTokenRoute, homeModels.getHome);
 
 module.exports = router;
