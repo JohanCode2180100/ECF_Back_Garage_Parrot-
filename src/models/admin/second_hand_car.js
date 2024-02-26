@@ -1,5 +1,6 @@
+const multer = require("../../../node_modules/multer/index");
+
 const db = require("../../db/db_config");
-const multer = require("multer");
 
 //REGEX
 const regexName = /^[A-Za-z]+$/;
