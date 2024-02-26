@@ -39,6 +39,7 @@ exports.createCar = (req, res) => {
         .json({ error: "Erreur lors du téléchargement du fichier" });
     }
     const url = req.protocol + "://" + req.get("host");
+    console.log(url);
 
     const newCarData = req.body;
     const imagePath = url + "/images/" + req.file.filename;
